@@ -7,7 +7,9 @@
     <StakingPopup v-show="showStakingPopup"/>
 
     <Navbar/>
+    <!-- Render pages inside here -->
     <Nuxt />
+    <!--  -->
     <FooterComp/></div>
    
     
