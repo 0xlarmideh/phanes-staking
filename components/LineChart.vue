@@ -1,5 +1,5 @@
 <template>
-    <Line
+    <LineComp
         :chartData="chartData"
         :chartOptions="chartOptions"
         :width="width"
@@ -7,7 +7,7 @@
       />
   </template>
   <script>
-  import { Line } from 'vue-chartjs'
+  import { Line as LineComp } from 'vue-chartjs'
   import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale, Plugin, Filler,BorderRadius } from 'chart.js'
   import gradient from 'chartjs-plugin-gradient';
   
@@ -16,7 +16,7 @@
   
   export default {
     name: 'LineChart',
-    components: { Line },
+    components: { LineComp },
     props: {
       chartId: {
         type: String,

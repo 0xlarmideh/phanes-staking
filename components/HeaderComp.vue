@@ -139,7 +139,7 @@ export default {
          
         </div>
         <div class="stats" :class="nightMode? 'stats-night':''">
-            <!-- <img class="bg" src="@/assets/stats-bg.png" alt=""> -->
+            <img class="bg" src="@/assets/stats-bg.png" alt="">
             <div class="row">
                 <h2>stats</h2>
                 <ul class="items">
