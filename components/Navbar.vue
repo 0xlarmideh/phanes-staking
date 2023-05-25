@@ -29,21 +29,7 @@
             }
             },
             setActive(){
-                const buttons = document.querySelectorAll('.btn')
-                for(let i=0; i<buttons.length; i++){
-                    buttons[i].classList.remove('active')
-                }
-                const btn = event.target
-                btn.classList.add('active')
                 
-                if(btn.classList.contains('btn1')){                     
-                    this.$router.push('/dashboard')
-                }
-                else if(btn.classList.contains('btn2')){this.$router.push('/dashboard/liquidityLocker')}
-                else if(btn.classList.contains('btn3')){this.$router.push('/dashboard/tokenLocker')}
-                else if(btn.classList.contains('btn4')){this.$router.push('/dashboard/tokenMinter')}
-                else if(btn.classList.contains('btn5')){this.$router.push('/dashboard/staking')}
-                else if(btn.classList.contains('btn6')){this.$router.push('/dashboard/multisender')}
                 this.hideMenu = !this.hideMenu
             }
     
@@ -61,12 +47,12 @@
           <img src="@/assets/logo.png" alt="" class="logo" v-else @click="$router.push('/')">
           <div>
               <ul class="buttons" :class="nightMode?'buttons-night':''">
-                  <li><router-link to="" @click="setActive" class="btn btn1">Index</router-link></li>
-                  <li><router-link to="" @click="setActive" class="btn btn2">Liquidity Locker</router-link></li>
-                  <li><router-link to="" @click="setActive" class="btn btn3">Token Locker</router-link></li>
-                  <li><router-link to="" @click="setActive" class="btn btn4">Token Minter</router-link></li>
-                  <li><router-link to="" @click="setActive" class="btn btn5">Staking</router-link></li>
-                  <li><router-link to="" @click="setActive" class="btn btn6">Multisender</router-link></li>
+                  <li><NuxtLink to="/" @click="setActive" class="btn btn1">Index</NuxtLink></li>
+                  <li><NuxtLink to="/liquiditylocker" @click="setActive" class="btn btn2">Liquidity Locker</NuxtLink></li>
+                  <li><NuxtLink to="/tokenlocker" @click="setActive" class="btn btn3">Token Locker</NuxtLink></li>
+                  <li><NuxtLink to="/tokenminter" @click="setActive" class="btn btn4">Token Minter</NuxtLink></li>
+                  <li><NuxtLink to="/staking" @click="setActive" class="btn btn5">Staking</NuxtLink></li>
+                  <li><NuxtLink to="/multisender" @click="setActive" class="btn btn6">Multisender</NuxtLink></li>
               </ul>
           </div>
           <div class="right">
@@ -85,12 +71,12 @@
         <button class="selectNetwork">Select Network</button>
         <div :class="hideMenu? 'hideButtons':''">
             <ul class="buttons-mobile" :class="nightMode?'buttons-mobile-night':''">
-                <li><router-link to="" @click="setActive" class="btn btn1">Index</router-link></li>
-                <li><router-link to="" @click="setActive" class="btn btn2">Liquidity Locker</router-link></li>
-                <li><router-link to="" @click="setActive" class="btn btn3">Token Locker</router-link></li>
-                <li><router-link to="" @click="setActive" class="btn btn4">Token Minter</router-link></li>
-                <li><router-link to="" @click="setActive" class="btn btn5">Staking</router-link></li>
-                <li><router-link to="" @click="setActive" class="btn btn6">Multisender</router-link></li>
+                <li><NuxtLink to="" @click="setActive" class="btn btn1">Index</NuxtLink></li>
+                <li><NuxtLink to="" @click="setActive" class="btn btn2">Liquidity Locker</NuxtLink></li>
+                <li><NuxtLink to="" @click="setActive" class="btn btn3">Token Locker</NuxtLink></li>
+                <li><NuxtLink to="" @click="setActive" class="btn btn4">Token Minter</NuxtLink></li>
+                <li><NuxtLink to="" @click="setActive" class="btn btn5">Staking</NuxtLink></li>
+                <li><NuxtLink to="" @click="setActive" class="btn btn6">Multisender</NuxtLink></li>
             </ul>
         </div>
     </div>
@@ -159,7 +145,7 @@
                     color: #09976E;
                 }
             }
-            .active{
+            .nuxt-link-exact-active{
                 background: rgba(9, 151, 110, 0.15);
                 color: #09976E;
             }           

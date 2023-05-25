@@ -1,65 +1,61 @@
 <template>
-  <div class="home">
-    <Navbar/>
+  <div class="dashboard" :class="nightMode? 'dashboard-night':''">
+    <!-- Header -->
     <HeaderComp/>
-    <PhanesEcosystem/>
-    <Governance/>
-    <HowWorks/>
-    <ChooseUs/>
-    <PhanesToken />
-    <YourAssets/>
-    <ListedOn/>
-    <EcosystemCollector/>
-    <Partners/>
-    <FooterComp/>
+    <!-- Main -->
+    <MainComp/>    
+
   </div>
 </template>
 
 <script>
-import HeaderComp from '@/components/PhanesNetwork/HeaderComp.vue';
-import Navbar from '@/components/PhanesNetwork/PhanesNavbar.vue';
-import PhanesEcosystem from '@/components/PhanesNetwork/PhanesEcosystem.vue';
-import Governance from '@/components/PhanesNetwork/Governance.vue';
-import HowWorks from '@/components/PhanesNetwork/HowWorks.vue';
-import ChooseUs from '@/components/PhanesNetwork/ChooseUs.vue';
-import PhanesToken from '@/components/PhanesNetwork/PhanesToken.vue';
-import YourAssets from '@/components/PhanesNetwork/YourAssets.vue';
-import ListedOn from '@/components/PhanesNetwork/ListedOn.vue';
-import EcosystemCollector from '@/components/PhanesNetwork/EcosystemCollector.vue';
-import Partners from '@/components/PhanesNetwork/Partners.vue';
-import FooterComp from '../components/PhanesNetwork/FooterComp.vue';
+import { mapMutations } from 'vuex';
+import HeaderComp from "@/components/HeaderComp.vue";
+import MainComp from "@/components/MainComp.vue";
+import FooterComp from "@/components/FooterComp.vue";
+import PopupTokens1 from '@/components/popupTokens.vue';  
+
 export default {
-    components: { HeaderComp, Navbar, PhanesEcosystem, Governance, HowWorks, ChooseUs, PhanesToken, YourAssets, ListedOn, EcosystemCollector, Partners, FooterComp }
+  name: "DashboardView",
+  computed: {
+    nightMode(){ return this.$store.state.nightMode; },
+    showPopup(){ return this.$store.state.showPopup; } 
+  },
+  methods:{
+      ...mapMutations([
+          'togglePopup',
+      ]),
+  },
+  components: { HeaderComp, MainComp, FooterComp, PopupTokens1 }
 }
 </script>
 <style lang="scss">
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
-  .home{
-    // font-family: 'Poppins', sans-serif;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #000906;
-      background-color: rgb(7, 14, 12);
-      scroll-behavior: smooth;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+.dashboard-night{
+  background: #070E0C;
+  backdrop-filter: blur(20px);
+}
+*,*::after,*::before{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+html{
+font-family: 'Poppins', sans-serif;
+background: #f3f3f3;
+}
+a{
+text-decoration: none;
+}
+.row{
+  width: 100%;
+  max-width: 1600px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 0 24px;
+  @media only screen and (max-width:580px){
+    padding: 0 10px;
   }
-  .row{
-    width: 100%;
-    max-width: 1600px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    padding: 0 24px;
-    @media only screen and (max-width:580px){
-      padding: 0 10px;
-    }
-  }
-  .heading{
-      font-weight: 800;
-      font-size: 55px;
-      background: linear-gradient(96.52deg, #FFFFFF -5.36%, rgba(235, 235, 235, 0.5) 105.24%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      // text-fill-color: transparent;
-    }
-  </style>
-  
+}
+
+</style>
