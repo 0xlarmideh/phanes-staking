@@ -82,24 +82,48 @@ export default {
 
         connectWallet() {
             if (typeof window.ethereum !== 'undefined') {
-                // Modern dapp browsers
                 this.web3 = new Web3(window.ethereum);
-                window.ethereum.enable().then(() => {
-                    // Connection successful
-                    this.setWalletConnected(true);
-                }).catch(() => {
-                    // Connection failed
-                    console.error('Failed to connect to the wallet.');
-                });
-            } else if (typeof window.web3 !== 'undefined') {
-                // Legacy dapp browsers
-                this.web3 = new Web3(window.web3.currentProvider);
-                this.setWalletConnected(true);
+                window.ethereum.enable()
+                    .then(() => {
+                        this.setWalletConnected(true);
+                        this.saveWalletConnection(true); // Save in cookies
+                    })
+                    .catch((error) => {
+                        console.error('Failed to connect to the wallet:', error);
+                    });
             } else {
-                // Non-dapp browsers
-                console.error('No wallet detected.');
+                console.error('No compatible Ethereum provider detected.');
             }
         },
+        saveWalletConnection(isConnected) {
+            if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
+                window.localStorage.setItem('isWalletConnected', isConnected.toString());
+            }
+        },
+        getCookieValue(cookieName) {
+            const name = `${cookieName}=`;
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
+
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
+                while (cookie.charAt(0) === ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return '';
+        },
+    },
+     created() {
+        if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
+            const isWalletConnected = window.localStorage.getItem('isWalletConnected');
+            if (isWalletConnected === 'true') {
+                this.setWalletConnected(true);
+            }
+        }
     },
     mounted() {
         this.darkMode = this.nightMode
