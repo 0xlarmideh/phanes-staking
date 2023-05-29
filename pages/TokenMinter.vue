@@ -4,7 +4,7 @@
     <div class="row">
         <div class="wrapper">
             <h2 class="tokenMinter-heading">Mint your token in few easy steps</h2>
-            <p class="snippets">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu, eros, vitae amet faucibus bibendum. A venenatis velit tellus nunc, ultricies. Nec tortor facilisi tempus eget commodo varius. Adipiscing tempus nec eu accumsan tortor. Nunc velit ridiculus egestas est est donec tristique. </p>
+            <p class="snippets"> Welcome to the Token Minter! With this tool, you can create your own custom tokens easily. Simply follow the steps below to mint your token. </p>
             <form>
                 <label for="tokenName">
                     <h3 class="title">Token Name</h3>
@@ -23,7 +23,7 @@
                     <input type="number" id="deciamls" placeholder="recommended 18">
                 </label>
 
-                <button class="newToken">Mint a new Token</button>
+                <button class="newToken" @click="mintToken">Mint a new Token</button>
 
             </form>
         </div>
@@ -31,17 +31,67 @@
   </div>
 </template>
 
-<script>
-    import { mapState } from 'vuex';
-export default {
-    name:'TokenMinterView',
-    computed:{
-        ...mapState([
-            'nightMode'
-        ])
-    },
 
-}
+<script>
+import { mapState } from 'vuex';
+import Web3 from 'web3';
+import MinterABI from '@/assets/abi/MinterABI.json'; // Path to the Minter contract ABI JSON file
+
+export default {
+    name: 'TokenMinterView',
+    computed: {
+        ...mapState(['nightMode']),
+    },
+    data() {
+        return {
+            tokenName: '',
+            tokenSymbol: '',
+            totalSupply: '',
+            decimals: '',
+            web3: null,
+            contract: null,
+        };
+    },
+    mounted() {
+        this.initializeWeb3();
+    },
+    methods: {
+        async initializeWeb3() {
+            // Check if the user has MetaMask or any other web3-enabled browser
+            if (typeof window.ethereum !== 'undefined') {
+                this.web3 = new Web3(window.ethereum);
+                try {
+                    // Request account access if needed
+                    await window.ethereum.enable();
+                    this.contract = new this.web3.eth.Contract(
+                        MinterABI,
+                        '0xContractAddress' 
+                    );
+                } catch (error) {
+                    // User denied account access...
+                }
+            } else {
+                // No web3 provider detected
+                console.log('Please install MetaMask or use a web3-enabled browser');
+            }
+        },
+        async mintToken() {
+            try {
+                const accounts = await this.web3.eth.getAccounts();
+                const result = await this.contract.methods.createToken(
+                    this.tokenName,
+                    this.tokenSymbol,
+                    this.totalSupply
+                ).send({ from: accounts[0] });
+
+                // Handle the result
+                console.log('Token created:', result.events.TokenCreated.returnValues.token);
+            } catch (error) {
+                console.error('Error creating token:', error);
+            }
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -133,7 +183,7 @@ export default {
                         width: 100%;
                     }
                     &:focus{
-                        outline: 1px solid #00ca91;
+                        outline: 1px solid #1BD19C;
                     }
                 }
             }

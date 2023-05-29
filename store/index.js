@@ -1,6 +1,7 @@
 export const state = () => ({
   nightMode: false,
   showPopup: false,
+  isWalletConnected: false,
 
   // Used in ConnectWallet
   currencyFrom: { icon: "eth-icon.png", title: "ETH" },
@@ -58,7 +59,14 @@ export const mutations = {
   setStakingCurrency(state, info) {
     state.selectedStakingCurrency = info.currency;
   },
+
+  setWalletConnected(state, isConnected) {
+      state.isWalletConnected = isConnected;
+    },
 };
 
-// export const actions = {
-// }
+export const actions = {
+ setWalletConnected({ commit }, isConnected) {
+      commit('setWalletConnected', isConnected);
+    },
+}

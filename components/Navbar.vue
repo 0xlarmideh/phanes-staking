@@ -1,45 +1,3 @@
-<script>
-    import {mapMutations, mapState} from 'vuex'
-    export default {
-        data(){
-            return{
-                darkMode:false,
-                hideMenu: true,
-            }
-        },
-        computed:{
-            ...mapState([
-                'nightMode'
-            ]),
-        },
-        methods:{
-            ...mapMutations([
-                'changeMode'
-            ]),
-            handleDarkMode(){
-            this.darkMode = !this.darkMode;
-            this.changeMode(this.darkMode)
-            const dot = document.getElementById('toggleDot')
-            if(this.darkMode === true){
-                dot.style.left = '23px'
-                dot.style.background= 'rgba(7, 14, 12, 0.85)';
-            }else{
-                dot.style.left = '3px'
-                dot.style.background= '#fff';
-            }
-            },
-            setActive(){
-                
-                this.hideMenu = !this.hideMenu
-            }
-    
-        },
-        mounted(){
-            this.darkMode = this.nightMode
-        }
-    }
-</script>
-
 <template>
     <div class="wrapper" :class="nightMode?'nav-night':''">
         <nav class="nav">
@@ -64,11 +22,12 @@
                 <path d="M13.1398 25C9.62028 25 6.31791 23.6359 3.84098 21.159C1.36404 18.6822 3.07733e-07 15.3796 3.07733e-07 11.86C-0.000525102 9.43206 0.671756 7.05143 1.94222 4.98238C3.21269 2.91333 5.03165 1.23679 7.1972 0.138853C7.41999 0.0252811 7.67131 -0.0201531 7.91976 0.00822219C8.16822 0.0365975 8.40281 0.137525 8.59426 0.298407C8.78571 0.459288 8.92554 0.672996 8.99628 0.912853C9.06702 1.15271 9.06554 1.40809 8.99203 1.64711C8.37408 3.6431 8.31335 5.77001 8.8164 7.798C9.31944 9.826 10.3671 11.678 11.8463 13.1538C12.9077 14.2231 14.1708 15.0713 15.5623 15.6493C16.9538 16.2272 18.4461 16.5234 19.9528 16.5207C21.1055 16.5215 22.2516 16.3486 23.3527 16.0078C23.5918 15.9343 23.8472 15.9328 24.0871 16.0035C24.327 16.0742 24.5407 16.2141 24.7016 16.4055C24.8625 16.597 24.9634 16.8316 24.9918 17.0801C25.0201 17.3286 24.9747 17.5799 24.8611 17.8027C23.7631 19.9683 22.0866 21.7872 20.0175 23.0577C17.9485 24.3282 15.5678 25.0005 13.1398 25ZM7.15173 2.07145C5.47246 3.09318 4.08529 4.53099 3.1244 6.2458C2.16351 7.9606 1.66142 9.89437 1.66671 11.86C1.66671 18.1864 6.81349 23.3333 13.1398 23.3333C15.1055 23.3386 17.0393 22.8365 18.7541 21.8756C20.4689 20.9147 21.9068 19.5276 22.9285 17.8483C21.9528 18.0741 20.9545 18.1879 19.9529 18.1875C18.2272 18.1908 16.518 17.8518 14.9243 17.19C13.3305 16.5283 11.8838 15.557 10.6679 14.3324C9.08837 12.7559 7.93663 10.8028 7.32142 8.65762C6.7062 6.51241 6.6478 4.24581 7.15173 2.07176V2.07145Z" fill="#09976E"/>
               </svg>
               
-              <button class="connect">Connect</button>
+              <button class="connect" v-if="!isWalletConnected" @click="connectWallet">Connect</button>
+              <button class="connected" v-else disabled>Connected</button>
           </div>
       
         </nav>
-        <button class="selectNetwork">Select Network</button>
+        <!-- <button class="selectNetwork">Select Network</button> -->
         <div :class="hideMenu? 'hideButtons':''">
             <ul class="buttons-mobile" :class="nightMode?'buttons-mobile-night':''">
                 <li><NuxtLink to="" @click="setActive" class="btn btn1">Index</NuxtLink></li>
@@ -81,6 +40,73 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapMutations, mapState, mapActions } from 'vuex'
+import Web3 from 'web3';
+export default {
+    data() {
+        return {
+            darkMode: false,
+            hideMenu: true,
+        }
+    },
+    computed: {
+        ...mapState([
+            'nightMode',
+            'isWalletConnected'
+        ]),
+    },
+    methods: {
+        ...mapMutations([
+            'changeMode'
+        ]),
+        ...mapActions([
+            'setWalletConnected'
+        ]),
+        handleDarkMode() {
+            this.darkMode = !this.darkMode;
+            this.changeMode(this.darkMode)
+            const dot = document.getElementById('toggleDot')
+            if (this.darkMode === true) {
+                dot.style.left = '23px'
+                dot.style.background = 'rgba(7, 14, 12, 0.85)';
+            } else {
+                dot.style.left = '3px'
+                dot.style.background = '#fff';
+            }
+        },
+        setActive() {
+            this.hideMenu = !this.hideMenu
+        },
+
+        connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                // Modern dapp browsers
+                this.web3 = new Web3(window.ethereum);
+                window.ethereum.enable().then(() => {
+                    // Connection successful
+                    this.setWalletConnected(true);
+                }).catch(() => {
+                    // Connection failed
+                    console.error('Failed to connect to the wallet.');
+                });
+            } else if (typeof window.web3 !== 'undefined') {
+                // Legacy dapp browsers
+                this.web3 = new Web3(window.web3.currentProvider);
+                this.setWalletConnected(true);
+            } else {
+                // Non-dapp browsers
+                console.error('No wallet detected.');
+            }
+        },
+    },
+    mounted() {
+        this.darkMode = this.nightMode
+    }
+}
+</script>
+
 <style lang="scss" scoped>
     .wrapper{
         display: flex;
@@ -233,42 +259,42 @@
                     background:  #09976E;
                 }
             }
+            .connected{
+                padding: 10px 27px;
+                background: linear-gradient(95.34deg, #09976E -21.44%, #084F65 108.23%);
+                color: #fff;
+                border-radius: 8px;
+                font-weight: 700;
+                font-size: 20px;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                transition: all .25s;
+                @media only screen and (max-width:1080px) {
+                    padding: 10px 20px;
+                    font-weight: 500;
+                    font-size: 16px;
+                }
+                @media only screen and (max-width:980px) {
+                    padding: 10px 27px;
+                    width: 134px;
+                    font-size: 15px;
+                } 
+                @media only screen and (max-width:420px) {
+                    width: 100px;
+                    padding: 10px 5px;
+                    font-size: 14px;
+                } 
+                &:disabled{
+                    background:  #8ab9ab;
+                }
+            }
 
         }
     }
     .nav-night{
         background: rgba(10, 14, 11, 0.999);
         backdrop-filter: blur(20px);
-    }
-
-    .selectNetwork{
-        align-self: flex-end;
-        width: 134px;
-        padding: 10px;
-        background: linear-gradient(95.34deg, #09976E -21.44%, #084F65 108.23%);
-        color: #fff;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 15px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        transition: all .25s;
-        @media only screen and (max-width:1080px) {
-            width: 100px;
-        }
-        @media only screen and (max-width:980px) {
-            width: 134px;
-            font-size: 15px;
-        } 
-        @media only screen and (max-width:420px) {
-            width: 100px;
-            padding: 10px 5px;
-            font-size: 12px;
-        } 
-        &:active,&:hover{
-            background:  #09976E;
-        }
     }
     .buttons-mobile{
         display: none;
