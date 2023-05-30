@@ -23,7 +23,7 @@
               </svg>
               
               <button class="connect" v-if="!isWalletConnected" @click="connectWallet">Connect</button>
-              <button class="connected" v-else disabled>Connected</button>
+              <button class="disconnect" v-else  @click="disconnectWallet">Disconnect</button>
           </div>
       
         </nav>
@@ -115,6 +115,23 @@ export default {
                 }
             }
             return '';
+        },
+        disconnectWallet() {
+            this.setWalletConnected(false);
+            this.clearWalletConnection(); // Clear storage or cookies
+            // Additional code to disconnect from the wallet (Metamask)
+            if (typeof window.ethereum !== 'undefined' && window.ethereum.isConnected()) {
+                if (typeof window.ethereum.disconnect === 'function') {
+                    window.ethereum.disconnect();
+                } else if (typeof window.ethereum.currentProvider !== 'undefined' && window.ethereum.currentProvider.disconnect) {
+                    window.ethereum.currentProvider.disconnect();
+                }
+            }
+        },
+        clearWalletConnection() {
+            if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
+                window.localStorage.removeItem('isWalletConnected');
+            }
         },
     },
      created() {
@@ -283,7 +300,7 @@ export default {
                     background:  #09976E;
                 }
             }
-            .connected{
+            .disconnect{
                 padding: 10px 27px;
                 background: linear-gradient(95.34deg, #09976E -21.44%, #084F65 108.23%);
                 color: #fff;
