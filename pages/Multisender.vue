@@ -17,9 +17,9 @@
         <div class="recipients">
             <h3>Recipients and amount</h3>
             <p>Enter one address and amount in <span v-if="activeToken">Token</span><span v-else>ETH</span> on each line. Supports any format</p>
-            <textarea name="" id="addresses" cols="30" rows="10" placeholder="0xc731159C350d6B0590DBA419F1FF7F726251912d 2.1543
+            <textarea name="" id="addresses" cols="30" rows="10" placeholder="0xc731159C350d6B0590DBA419F1FF7F726251912d,2.1543
 0xE32cC3Eb8beD62C33b3f2095854aa5A2c8aD879A,4.1543
-0x2e5cC3Eb8beD62C33b3f2095854aa5A2c8aD834d=10.2345"></textarea>
+0x2e5cC3Eb8beD62C33b3f2095854aa5A2c8aD834d,10.2345"></textarea>
             <button class="confirmBtn" @click="confirmData">Confirm</button>
             <div class="confirmData" v-if="addresses.length>0">
                 <h3 class="main-title">Confirm the above information before sending.</h3>
@@ -31,19 +31,19 @@
                     <li class="item" v-for="(item,index) in addresses" :key="index">
                         <p class="address">{{item.address}}</p>
                         <hr class="h-line">
-                        <p class="amount">{{item.amount}}ETH</p>
+                        <p class="amount">{{item.amount}}</p>
                     </li>
                     <li class="item">
                         <p class="title">Total</p>
-                        <p class="amount">0.02ETH</p>
+                        <p class="amount">{{totalAmount}}</p>
                     </li>
                     <li class="item">
                         <p class="title">Your balance</p>
-                        <p class="amount">0.01276546455er2ETH</p>
+                        <p class="amount">{{walletBalance}}</p>
                     </li>
                     <li class="item">
                         <p class="title">Remaining</p>
-                        <p class="amount">0.0.01276546455er2ETH</p>
+                        <p class="amount">{{remainingBalance}}</p>
                     </li>
 
 
@@ -62,7 +62,10 @@ export default {
     data(){
         return{
             activeToken:false,
-            addresses:[]
+            addresses: [],
+            totalAmount: 0,
+            walletBalance: 0,
+            remainingBalance: 0,
         }
     },
     computed:{
@@ -71,45 +74,23 @@ export default {
         ])
     },
     methods:{
-        confirmData(){
-            if(this.addresses.length<=0){
-                alert('Enter Adresses to sent')
-            }
-        }
-    },
-    mounted(){
-        const addressInput = document.getElementById('addresses')
-        addressInput.addEventListener('change',(e)=>{
-            const arr =  e.target.value.split('\n')
-            const addressList = []
-            for(let i=0; i<arr.length; i++){
-                if(arr[i].includes(' ')){
-                    let temp = arr[i].split(' ')
-                    if(temp.length==2){
-                        addressList.push({address:temp[0], amount:temp[1]})
-                    }else{
-                        console.log('invalid address1');
-                    }
-                }else if(arr[i].includes(',')){
-                    let temp = arr[i].split(',')
-                    if(temp.length==2){
-                        addressList.push({address:temp[0], amount:temp[1]})
-                    }else{
-                        console.log('invalid address2');
-                    }
-                }else if(arr[i].includes('=')){
-                    let temp = arr[i].split('=')
-                    if(temp.length==2){
-                        addressList.push({address:temp[0], amount:temp[1]})
-                    }else{
-                        console.log('invalid address3');
-                    }
-                }    
-            }
-            this.addresses = addressList
-        })
-    }
+        confirmData() {
+            const textarea = document.getElementById('addresses');
+            const lines = textarea.value.split('\n');
 
+            this.totalAmount = 0; // Reset the totalAmount
+
+            this.addresses = lines.map(line => {
+                const [address, amount] = line.split(',');
+                const strippedAmount = parseFloat(amount.trim());
+                this.totalAmount += strippedAmount; // Calculate the total amount
+                return {
+                    address: address.trim(),
+                    amount: strippedAmount,
+                };
+            });
+        },
+    },
 }
 </script>
 
