@@ -18,8 +18,8 @@
             <h3>Recipients and amount</h3>
             <p>Enter one address and amount in <span v-if="activeToken">Token</span><span v-else>ETH</span> on each line. Supports any format</p>
             <textarea name="" id="addresses" cols="30" rows="10" placeholder="0xc731159C350d6B0590DBA419F1FF7F726251912d,2.1543
-0xE32cC3Eb8beD62C33b3f2095854aa5A2c8aD879A,4.1543
-0x2e5cC3Eb8beD62C33b3f2095854aa5A2c8aD834d,10.2345"></textarea>
+0xE32cC3Eb8beD62C33b3f2095854aa5A2c8aD879A,0.3017
+0x2e5cC3Eb8beD62C33b3f2095854aa5A2c8aD834d,1.0024"></textarea>
             <button class="confirmBtn" @click="confirmData">Confirm</button>
             <div class="confirmData" v-if="addresses.length>0">
                 <h3 class="main-title">Confirm the above information before sending.</h3>
@@ -43,53 +43,95 @@
                     </li>
                     <li class="item">
                         <p class="title">Remaining</p>
-                        <p class="amount">{{remainingBalance}}</p>
+                        <p class="amount">{{remaining}}</p>
                     </li>
 
 
                 </ul>
             </div>
-            <p class="inspiredText">Inspired by <a href="" target="_blank">Disperse.app</a></p>
-            <button class="sendBtn" v-if="addresses.length>0">Send</button>
+            <p class="inspiredText">Inspired by <a href="https://disperse.app" target="_blank">Disperse.app</a></p>
+            <button class="sendBtn" v-if="addresses.length>0 && remaining !== 'Not enough balance'" @click="send">Send</button>
         </div>
     </div>
   </div>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+import { mapState } from 'vuex';
+import MultisenderContract from '@/assets/abi/MultisenderABI.json';
 export default {
     data(){
         return{
             activeToken:false,
             addresses: [],
             totalAmount: 0,
-            walletBalance: 0,
-            remainingBalance: 0,
         }
     },
     computed:{
         ...mapState([
-            'nightMode'
-        ])
-    },
+            'nightMode', 'isConnected', 'walletBalance', 'web3', 'walletAddress', 'networkID'
+        ]),
+        remaining() {
+            const balance = this.walletBalance - this.totalAmount;
+            return balance < 0 ? "Not enough balance" : balance;
+        }
+     },
     methods:{
         confirmData() {
             const textarea = document.getElementById('addresses');
             const lines = textarea.value.split('\n');
 
             this.totalAmount = 0; // Reset the totalAmount
+            this.addresses = [];
 
-            this.addresses = lines.map(line => {
-                const [address, amount] = line.split(',');
-                const strippedAmount = parseFloat(amount.trim());
-                this.totalAmount += strippedAmount; // Calculate the total amount
-                return {
-                    address: address.trim(),
-                    amount: strippedAmount,
-                };
+            lines.forEach((line) => {
+                const trimmedLine = line.trim();
+                if (trimmedLine.length > 0 && trimmedLine.includes(',')) {
+                    const [address, amount] = trimmedLine.split(',');
+                    const trimmedAddress = address.trim();
+                    const strippedAmount = parseFloat(amount.trim());
+
+                    // Additional validation checks
+                    if (
+                        trimmedAddress &&
+                        !isNaN(strippedAmount) &&
+                        strippedAmount >= 0 &&
+                        !this.isDuplicateAddress(trimmedAddress)
+                    ) {
+                        this.totalAmount += strippedAmount; // Calculate the total amount
+                        this.addresses.push({
+                            address: trimmedAddress,
+                            amount: strippedAmount,
+                        });
+                    }
+                }
             });
         },
+        isDuplicateAddress(address) {
+            return this.addresses.some((item) => item.address === address);
+        },
+        async send() {
+            if (this.isConnected) {
+                console.log(this.web3)
+                // Load the contract
+                const contractData = MultisenderContract.networks[this.networkID];
+                const contract = new this.web3.eth.Contract(
+                    MultisenderContract.abi,
+                    contractData.address
+                );
+                // Distribute tokens
+                try {
+                    const result = await contract.methods
+                        .distribute(recipients, amounts)
+                        .send({ from: walletAddress });
+                    console.log('Transaction hash:', result.transactionHash);
+                    // You can add a success message or redirect to another page here
+                } catch (error) {
+                    console.error('Error:', error);
+                    // You can show an error message to the user here
+                }
+            }
+        }
     },
 }
 </script>
