@@ -22,8 +22,8 @@
                 <path d="M13.1398 25C9.62028 25 6.31791 23.6359 3.84098 21.159C1.36404 18.6822 3.07733e-07 15.3796 3.07733e-07 11.86C-0.000525102 9.43206 0.671756 7.05143 1.94222 4.98238C3.21269 2.91333 5.03165 1.23679 7.1972 0.138853C7.41999 0.0252811 7.67131 -0.0201531 7.91976 0.00822219C8.16822 0.0365975 8.40281 0.137525 8.59426 0.298407C8.78571 0.459288 8.92554 0.672996 8.99628 0.912853C9.06702 1.15271 9.06554 1.40809 8.99203 1.64711C8.37408 3.6431 8.31335 5.77001 8.8164 7.798C9.31944 9.826 10.3671 11.678 11.8463 13.1538C12.9077 14.2231 14.1708 15.0713 15.5623 15.6493C16.9538 16.2272 18.4461 16.5234 19.9528 16.5207C21.1055 16.5215 22.2516 16.3486 23.3527 16.0078C23.5918 15.9343 23.8472 15.9328 24.0871 16.0035C24.327 16.0742 24.5407 16.2141 24.7016 16.4055C24.8625 16.597 24.9634 16.8316 24.9918 17.0801C25.0201 17.3286 24.9747 17.5799 24.8611 17.8027C23.7631 19.9683 22.0866 21.7872 20.0175 23.0577C17.9485 24.3282 15.5678 25.0005 13.1398 25ZM7.15173 2.07145C5.47246 3.09318 4.08529 4.53099 3.1244 6.2458C2.16351 7.9606 1.66142 9.89437 1.66671 11.86C1.66671 18.1864 6.81349 23.3333 13.1398 23.3333C15.1055 23.3386 17.0393 22.8365 18.7541 21.8756C20.4689 20.9147 21.9068 19.5276 22.9285 17.8483C21.9528 18.0741 20.9545 18.1879 19.9529 18.1875C18.2272 18.1908 16.518 17.8518 14.9243 17.19C13.3305 16.5283 11.8838 15.557 10.6679 14.3324C9.08837 12.7559 7.93663 10.8028 7.32142 8.65762C6.7062 6.51241 6.6478 4.24581 7.15173 2.07176V2.07145Z" fill="#09976E"/>
               </svg>
               
-              <button class="connect" v-if="!isWalletConnected" @click="connectWallet">Connect</button>
-              <button class="disconnect" v-else  @click="disconnectWallet">Disconnect</button>
+              <button class="connect" v-if="!isConnected" @click="connect">Connect</button>
+              <button class="disconnect" v-else  @click="disconnect">{{ compressAddress(walletAddress, 5, 4) }}</button>
           </div>
       
         </nav>
@@ -42,111 +42,57 @@
 </template>
 
 <script>
-import { mapMutations, mapState, mapActions } from 'vuex'
-import Web3 from 'web3';
+import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
     data() {
         return {
             darkMode: false,
             hideMenu: true,
-        }
+        };
     },
     computed: {
-        ...mapState([
-            'nightMode',
-            'isWalletConnected'
-        ]),
+        ...mapState(['nightMode', 'isConnected', 'error', 'walletAddress']),
     },
     methods: {
-        ...mapMutations([
-            'changeMode'
-        ]),
-        ...mapActions([
-            'setWalletConnected'
-        ]),
+        ...mapMutations(['changeMode']),
+        ...mapActions(['connectMetaMask', 'disconnectMetaMask', 'clearError']),
         handleDarkMode() {
             this.darkMode = !this.darkMode;
-            this.changeMode(this.darkMode)
-            const dot = document.getElementById('toggleDot')
+            this.changeMode(this.darkMode);
+            const dot = document.getElementById('toggleDot');
             if (this.darkMode === true) {
-                dot.style.left = '23px'
+                dot.style.left = '23px';
                 dot.style.background = 'rgba(7, 14, 12, 0.85)';
             } else {
-                dot.style.left = '3px'
+                dot.style.left = '3px';
                 dot.style.background = '#fff';
             }
         },
         setActive() {
-            this.hideMenu = !this.hideMenu
+            this.hideMenu = !this.hideMenu;
         },
-
-        connectWallet() {
-            if (typeof window.ethereum !== 'undefined') {
-                this.web3 = new Web3(window.ethereum);
-                window.ethereum.enable()
-                    .then(() => {
-                        this.setWalletConnected(true);
-                        this.saveWalletConnection(true); // Save in cookies
-                    })
-                    .catch((error) => {
-                        console.error('Failed to connect to the wallet:', error);
-                    });
-            } else {
-                console.error('No compatible Ethereum provider detected.');
-            }
+        connect() {
+            this.clearError();
+            this.$store.dispatch('connectMetaMask');
         },
-        saveWalletConnection(isConnected) {
-            if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
-                window.localStorage.setItem('isWalletConnected', isConnected.toString());
-            }
+        disconnect() {
+            this.$store.dispatch('disconnectMetaMask');
         },
-        getCookieValue(cookieName) {
-            const name = `${cookieName}=`;
-            const decodedCookie = decodeURIComponent(document.cookie);
-            const cookieArray = decodedCookie.split(';');
-
-            for (let i = 0; i < cookieArray.length; i++) {
-                let cookie = cookieArray[i];
-                while (cookie.charAt(0) === ' ') {
-                    cookie = cookie.substring(1);
-                }
-                if (cookie.indexOf(name) === 0) {
-                    return cookie.substring(name.length, cookie.length);
-                }
-            }
-            return '';
+        compressAddress(address, leftOffset, rightOffset) {
+            return (
+                address.substr(0, leftOffset) +
+                "..." +
+                address.substr(address.length - rightOffset, address.length)
+            );
         },
-        disconnectWallet() {
-            this.setWalletConnected(false);
-            this.clearWalletConnection(); // Clear storage or cookies
-            // Additional code to disconnect from the wallet (Metamask)
-            if (typeof window.ethereum !== 'undefined' && window.ethereum.isConnected()) {
-                if (typeof window.ethereum.disconnect === 'function') {
-                    window.ethereum.disconnect();
-                } else if (typeof window.ethereum.currentProvider !== 'undefined' && window.ethereum.currentProvider.disconnect) {
-                    window.ethereum.currentProvider.disconnect();
-                }
-            }
-        },
-        clearWalletConnection() {
-            if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
-                window.localStorage.removeItem('isWalletConnected');
-            }
-        },
-    },
-     created() {
-        if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
-            const isWalletConnected = window.localStorage.getItem('isWalletConnected');
-            if (isWalletConnected === 'true') {
-                this.setWalletConnected(true);
-            }
-        }
     },
     mounted() {
-        this.darkMode = this.nightMode
-    }
-}
+        this.darkMode = this.nightMode;
+    },
+};
 </script>
+
 
 <style lang="scss" scoped>
     .wrapper{
