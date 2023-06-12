@@ -34,61 +34,45 @@
 
 <script>
 import { mapState } from 'vuex';
-import Web3 from 'web3';
 import MinterABI from '@/assets/abi/MinterABI.json'; // Path to the Minter contract ABI JSON file
 
 export default {
     name: 'TokenMinterView',
     computed: {
-        ...mapState(['nightMode']),
+        ...mapState(['nightMode', 'walletAddress', 'web3']),
     },
     data() {
         return {
             tokenName: '',
             tokenSymbol: '',
             totalSupply: '',
-            decimals: '',
-            web3: null,
-            contract: null,
+            decimals: 18,
         };
     },
-    mounted() {
-        this.initializeWeb3();
-    },
+ 
     methods: {
-        async initializeWeb3() {
-            // Check if the user has MetaMask or any other web3-enabled browser
-            if (typeof window.ethereum !== 'undefined') {
-                this.web3 = new Web3(window.ethereum);
-                try {
-                    // Request account access if needed
-                    await window.ethereum.enable();
-                    this.contract = new this.web3.eth.Contract(
-                        MinterABI,
-                        '0xContractAddress' 
-                    );
-                } catch (error) {
-                    // User denied account access...
-                }
-            } else {
-                // No web3 provider detected
-                console.log('Please install MetaMask or use a web3-enabled browser');
-            }
-        },
         async mintToken() {
-            try {
-                const accounts = await this.web3.eth.getAccounts();
-                const result = await this.contract.methods.createToken(
-                    this.tokenName,
-                    this.tokenSymbol,
-                    this.totalSupply
-                ).send({ from: accounts[0] });
+            if (this.isConnected) {
+                // Load the contract
+                const contractData = MinterABI.networks[networkId];
+                this.contract = new this.web3.eth.Contract(
+                    MinterABI.abi,
+                    contractData.address
+                );
+                try {
+                    const result = await contract.methods.createToken(
+                        this.tokenName,
+                        this.tokenSymbol,
+                        this.totalSupply,
+                        this.decimals,
+                    ).send({ from: walletAddress });
 
-                // Handle the result
-                console.log('Token created:', result.events.TokenCreated.returnValues.token);
-            } catch (error) {
-                console.error('Error creating token:', error);
-            }
+                    // Handle the result
+                    console.log('Token created:', result.events.TokenCreated.returnValues.token);
+                } catch (error) {
+                    console.error('Error creating token:', error);
+                }
+            }    
         },
     },
 };
