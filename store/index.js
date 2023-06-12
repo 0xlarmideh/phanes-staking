@@ -1,7 +1,16 @@
+import { getWeb3, getWalletAddress, getWalletBalance, getNetworkId } from '@/plugins/web3';
+
+
 export const state = () => ({
   nightMode: false,
   showPopup: false,
-  isWalletConnected: false,
+
+  networkID: '',
+  web3: null,
+  isConnected: false,
+  walletAddress: '',
+  walletBalance: '',
+  error: null,
 
   // Used in ConnectWallet
   currencyFrom: { icon: "eth-icon.png", title: "ETH" },
@@ -22,12 +31,6 @@ export const state = () => ({
     { icon: "dpi.png", title: "DPI" },
   ],
 });
-
-// export const getters = {
-//   getterValue: state => {
-//     return state.value
-//   }
-// }
 
 export const mutations = {
   changeMode(state, val) {
@@ -59,14 +62,70 @@ export const mutations = {
   setStakingCurrency(state, info) {
     state.selectedStakingCurrency = info.currency;
   },
-
-  setWalletConnected(state, isConnected) {
-      state.isWalletConnected = isConnected;
-    },
+  
+  SET_WEB3(state, web3) {
+    state.web3 = web3;
+  },
+  SET_NETWORK_ID(state, id) {
+    state.networkID = id;
+  },
+  SET_CONNECTED(state, connected) {
+    state.isConnected = connected;
+  },
+  SET_WALLET_ADDRESS(state, address) {
+    state.walletAddress = address;
+  },
+  SET_WALLET_BALANCE(state, balance) {
+    state.walletBalance = balance;
+  },
+  SET_ERROR(state, error) {
+    state.error = error;
+  },
+  CLEAR_ERROR(state) {
+    state.error = null;
+  },
+  RESET_STATE(state) {
+    state.web3 = null;
+    state.networkID = '';
+    state.isConnected = false;
+    state.walletAddress = '';
+    state.walletBalance = '';
+    state.error = null;
+  },
 };
 
 export const actions = {
- setWalletConnected({ commit }, isConnected) {
-      commit('setWalletConnected', isConnected);
-    },
-}
+  async connectMetaMask({ commit, state }) {
+    try {
+      if (!state.isConnected) {
+        const web3 = await getWeb3();
+        
+        // commit('SET_WEB3', web3);
+        commit('SET_CONNECTED', true);
+
+        const account = await getWalletAddress(web3);
+        commit('SET_WALLET_ADDRESS', account);
+      
+        const balance = await getWalletBalance(web3, account);
+        commit('SET_WALLET_BALANCE', balance);
+
+        const networkID = await getNetworkId(web3);
+        commit('SET_NETWORK_ID', networkID);
+      }
+    } catch (error) {
+      commit('SET_ERROR', error.message);
+    }
+  },
+
+  async disconnectMetaMask({ commit }) {
+    try {
+      commit('RESET_STATE');
+    } catch (error) {
+      commit('SET_ERROR', error.message);
+    }
+  },
+
+  clearError({ commit }) {
+    commit('CLEAR_ERROR');
+  },
+};
