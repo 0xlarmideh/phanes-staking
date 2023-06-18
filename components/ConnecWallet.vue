@@ -69,7 +69,7 @@
     
                     </div>
                 </div>
-                <div class="connectbtn">Connect Wallet</div>
+                <div @click="toggleConnectWalletPopup(true)" class="connectbtn">Connect Wallet</div>
             </div>
 </template>
 
@@ -96,7 +96,8 @@ import { mapMutations } from 'vuex';
             'togglePopup', 
             'updateSllipageVal', 
             'setPopupType', 
-            'setCurrency'
+            'setCurrency',
+            'toggleConnectWalletPopup'
         ]),
         swapReverse(){
             let copyCurrFrom = this.currencyFrom

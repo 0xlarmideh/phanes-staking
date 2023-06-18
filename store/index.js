@@ -25,6 +25,7 @@ export const state = () => ({
 
   // Staking
   showStakingPopup: false,
+  showWalletPopup: false,
   selectedStakingCurrency: { icon: "eth-icon.png", title: "ETHEREUM" },
   stakingCurrencies: [
     { icon: "eth-icon.png", title: "ETHEREUM" },
@@ -41,6 +42,11 @@ export const mutations = {
   },
   toggleStakingPopup(state, val) {
     state.showStakingPopup = val;
+  },
+  toggleConnectWalletPopup(state, val) {
+    state.showWalletPopup = val;
+    document.body.classList.toggle("modal-open");
+    console.log("clicked")
   },
 
   // Used in ConnectWallet
@@ -62,7 +68,7 @@ export const mutations = {
   setStakingCurrency(state, info) {
     state.selectedStakingCurrency = info.currency;
   },
-  
+
   SET_WEB3(state, web3) {
     state.web3 = web3;
   },
@@ -86,10 +92,10 @@ export const mutations = {
   },
   RESET_STATE(state) {
     state.web3 = null;
-    state.networkID = '';
+    state.networkID = "";
     state.isConnected = false;
-    state.walletAddress = '';
-    state.walletBalance = '';
+    state.walletAddress = "";
+    state.walletBalance = "";
     state.error = null;
   },
 };

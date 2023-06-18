@@ -6,6 +6,10 @@
     <div class="overlay" @click="toggleStakingPopup(false)" v-show="showStakingPopup"></div>
     <StakingPopup v-show="showStakingPopup"/>
 
+    <!-- Connect wallet Popup -->
+    <div class="overlay" @click="toggleConnectWalletPopup(false)" v-show="showWalletPopup"></div>
+    <ConnectWalletPopup v-show="showWalletPopup"/>
+
     <Navbar/>
     <!-- Render pages inside here -->
     <Nuxt />
@@ -20,19 +24,22 @@ import Navbar from "~/components/Navbar.vue";
 import FooterComp from "~/components/FooterComp.vue";
 import StakingPopup from "~/components/StakingPopup.vue";
 import PopupTokens1 from '~/components/popupTokens.vue';
+import ConnectWalletPopup from '~/components/ConnectWalletPopup.vue';
 
 
   export default {
     computed: {
       ...mapState([
         'showPopup',
-        'showStakingPopup'
+        'showStakingPopup',
+        'showWalletPopup'
       ]),
     },
     methods:{
       ...mapMutations([
           'togglePopup',
-          'toggleStakingPopup'
+          'toggleStakingPopup',
+          'toggleConnectWalletPopup'
       ]),
     },
     components:{
@@ -55,6 +62,9 @@ html{
   font-family: 'Poppins', sans-serif;
   background: #f3f3f3;
   scroll-behavior: smooth;
+}
+body.modal-open{
+  overflow: hidden;
 }
 a{
   text-decoration: none;
