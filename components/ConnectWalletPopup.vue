@@ -99,9 +99,9 @@ export default {
 
 <style lang="scss" scoped>
 .popup {
-  background: rgba(7, 14, 12, 0.85);
+  background: linear-gradient(95.34deg, #09976E -21.44%, #084F65 108.23%);
   color: white;
-  backdrop-filter: blur(20px);
+  // backdrop-filter: blur(20px);
   border: 2px solid #1bd19c;
   position: fixed;
   top: 10%;

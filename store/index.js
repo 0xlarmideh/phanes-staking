@@ -26,6 +26,7 @@ export const state = () => ({
   // Staking
   showStakingPopup: false,
   showWalletPopup: false,
+  showMintTokenPopup: false,
   selectedStakingCurrency: { icon: "eth-icon.png", title: "ETHEREUM" },
   stakingCurrencies: [
     { icon: "eth-icon.png", title: "ETHEREUM" },
@@ -46,7 +47,10 @@ export const mutations = {
   toggleConnectWalletPopup(state, val) {
     state.showWalletPopup = val;
     document.body.classList.toggle("modal-open");
-    console.log("clicked")
+  },
+  toggleMintTokenPopup(state, val) {
+    state.showMintTokenPopup = val;
+    document.body.classList.toggle("modal-open");
   },
 
   // Used in ConnectWallet

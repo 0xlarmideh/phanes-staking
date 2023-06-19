@@ -23,7 +23,7 @@
                     <input type="number" id="deciamls" placeholder="recommended 18">
                 </label>
 
-                <button class="newToken" @click="mintToken">Mint a new Token</button>
+                <div href="#" class="newToken" @click="toggleMintTokenPopup(true)">Mint a new Token</div>
 
             </form>
         </div>
@@ -33,13 +33,13 @@
 
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import MinterABI from '@/assets/abi/MinterABI.json'; // Path to the Minter contract ABI JSON file
 
 export default {
     name: 'TokenMinterView',
     computed: {
-        ...mapState(['nightMode', 'walletAddress', 'web3']),
+        ...mapState(['nightMode', 'walletAddress', 'web3', 'showMintTokenPopup']),
     },
     data() {
         return {
@@ -51,6 +51,7 @@ export default {
     },
  
     methods: {
+        ...mapMutations(["toggleMintTokenPopup"]),
         async mintToken() {
             if (this.isConnected) {
                 // Load the contract

@@ -9,6 +9,8 @@
     <!-- Connect wallet Popup -->
     <div class="overlay" @click="toggleConnectWalletPopup(false)" v-show="showWalletPopup"></div>
     <ConnectWalletPopup v-show="showWalletPopup"/>
+    <div class="overlay" @click="toggleMintTokenPopup(false)" v-show="showMintTokenPopup"></div>
+    <MintTokenPopup v-show="showMintTokenPopup"/>
 
     <Navbar/>
     <!-- Render pages inside here -->
@@ -25,6 +27,7 @@ import FooterComp from "~/components/FooterComp.vue";
 import StakingPopup from "~/components/StakingPopup.vue";
 import PopupTokens1 from '~/components/popupTokens.vue';
 import ConnectWalletPopup from '~/components/ConnectWalletPopup.vue';
+import MintTokenPopup from '~/components/MintTokenPopup.vue';
 
 
   export default {
@@ -32,21 +35,24 @@ import ConnectWalletPopup from '~/components/ConnectWalletPopup.vue';
       ...mapState([
         'showPopup',
         'showStakingPopup',
-        'showWalletPopup'
+        'showWalletPopup',
+        'showMintTokenPopup'
       ]),
     },
     methods:{
       ...mapMutations([
           'togglePopup',
           'toggleStakingPopup',
-          'toggleConnectWalletPopup'
+          'toggleConnectWalletPopup',
+          'toggleMintTokenPopup'
       ]),
     },
     components:{
     Navbar,
     FooterComp,
     PopupTokens1,
-    StakingPopup
+    StakingPopup,
+    MintTokenPopup
 }
   }
 </script>
@@ -83,7 +89,7 @@ a{
   position: relative;
 }
 .overlay{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
     width: 100%;
     min-height: 120vh;
