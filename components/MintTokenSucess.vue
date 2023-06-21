@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-    <div class="close-cont" @click="toggleMintTokenPopup(false)">
+    <div class="close-cont" @click="toggleMintTokenSucess(false)">
       <Icon
         class="close"
         icon="carbon:close-filled"
@@ -10,9 +10,9 @@
       />
     </div>
     <div class="text-flex">
-      <div class="spinner"><img src="@/assets/eth.svg" /></div>
-      <h3>Confirm this transaction your wallet</h3>
-    <strong><p>Using a mobile wallet?</p></strong>
+      <div class="spinner"><img src="@/assets/sucess-logo.svg" /></div>
+      <h3>Transaction Confrimed</h3>
+    <strong><p>Want to make another transaction?</p></strong>
     <p>
       Sometimes it helps to close the mobile app and restart it if the
       transaction is not shown in the wallet
@@ -25,19 +25,19 @@
 import { mapMutations, mapState } from "vuex";
 import { Icon } from "@iconify/vue2";
 export default {
-  name: "MintTokenPopup",
+  name: "MintTokenSucess",
   components: {
     Icon,
   },
 
   computed: {
-    ...mapState(["showMintTokenPopup"]),
+    ...mapState(["showMintTokenSucess"]),
   },
   methods: {
-    ...mapMutations(["toggleMintTokenPopup"]),
+    ...mapMutations(["toggleMintTokenSucess"]),
   },
   mounted() {
-    this.toggleMintTokenPopup(false);
+    this.toggleMintTokenSucess(false);
   },
 };
 </script>

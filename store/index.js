@@ -1,4 +1,5 @@
 import { getWeb3, getWalletAddress, getWalletBalance, getNetworkId } from '@/plugins/web3';
+// import { set } from 'core-js/core/dict';
 
 
 export const state = () => ({
@@ -27,6 +28,7 @@ export const state = () => ({
   showStakingPopup: false,
   showWalletPopup: false,
   showMintTokenPopup: false,
+  showMintTokenSucess: false,
   selectedStakingCurrency: { icon: "eth-icon.png", title: "ETHEREUM" },
   stakingCurrencies: [
     { icon: "eth-icon.png", title: "ETHEREUM" },
@@ -50,6 +52,10 @@ export const mutations = {
   },
   toggleMintTokenPopup(state, val) {
     state.showMintTokenPopup = val;
+    document.body.classList.toggle("modal-open");
+  },
+  toggleMintTokenSucess(state, val) {
+    state.showMintTokenSucess = val;
     document.body.classList.toggle("modal-open");
   },
 

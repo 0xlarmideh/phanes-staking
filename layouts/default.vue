@@ -9,8 +9,9 @@
     <!-- Connect wallet Popup -->
     <div class="overlay" @click="toggleConnectWalletPopup(false)" v-show="showWalletPopup"></div>
     <ConnectWalletPopup v-show="showWalletPopup"/>
-    <div class="overlay" @click="toggleMintTokenPopup(false)" v-show="showMintTokenPopup"></div>
+
     <MintTokenPopup v-show="showMintTokenPopup"/>
+    <MintTokenSucess v-show="showMintTokenSucess"/>
 
     <Navbar/>
     <!-- Render pages inside here -->
@@ -28,6 +29,7 @@ import StakingPopup from "~/components/StakingPopup.vue";
 import PopupTokens1 from '~/components/popupTokens.vue';
 import ConnectWalletPopup from '~/components/ConnectWalletPopup.vue';
 import MintTokenPopup from '~/components/MintTokenPopup.vue';
+import MintTokenSucess from "~/components/MintTokenSucess.vue";
 
 
   export default {
@@ -36,7 +38,8 @@ import MintTokenPopup from '~/components/MintTokenPopup.vue';
         'showPopup',
         'showStakingPopup',
         'showWalletPopup',
-        'showMintTokenPopup'
+        'showMintTokenPopup',
+        'showMintTokenSucess'
       ]),
     },
     methods:{
@@ -44,7 +47,8 @@ import MintTokenPopup from '~/components/MintTokenPopup.vue';
           'togglePopup',
           'toggleStakingPopup',
           'toggleConnectWalletPopup',
-          'toggleMintTokenPopup'
+          'toggleMintTokenPopup',
+          'toggleMintTokenSucess'
       ]),
     },
     components:{
@@ -52,7 +56,8 @@ import MintTokenPopup from '~/components/MintTokenPopup.vue';
     FooterComp,
     PopupTokens1,
     StakingPopup,
-    MintTokenPopup
+    MintTokenPopup,
+    MintTokenSucess
 }
   }
 </script>
