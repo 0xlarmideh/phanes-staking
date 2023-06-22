@@ -1,71 +1,63 @@
 <template>
-    <div class="tokenLocker" :class="nightMode ? 'tokenLocker-night' : ''">
-      <div class="row">
-        <div class="filterbar" :class="nightMode ? 'filterbar-night' : ''">
-          <div v-if="createLock"></div>
-          <div class="searchbar" v-else>
-            <input
-              type="text"
-              class="searchInput"
-              placeholder="Pair name or address"
-            />
-            <img
-              src="@/assets/searchIcon-night.png"
-              class="searchIcon"
-              alt=""
-              v-if="nightMode"
-            />
-            <img
-              src="@/assets/searchIcon.png"
-              class="searchIcon"
-              alt=""
-              v-else
-            />
-          </div>
-          <div class="createLock">
-            <p
-              :class="createLock ? 'active-lock' : ''"
-              @click="createLock = true"
-            >
-              createLock
-            </p>
-            <p
-              :class="createLock ? '' : 'active-lock'"
-              @click="createLock = false"
-            >
-              Your lock
-            </p>
-          </div>
+  <div class="tokenLocker" :class="nightMode ? 'tokenLocker-night' : ''">
+    <div class="row">
+      <div class="filterbar" :class="nightMode ? 'filterbar-night' : ''">
+        <div v-if="createLock"></div>
+        <div class="searchbar" v-else>
+          <input
+            type="text"
+            class="searchInput"
+            placeholder="Pair name or address"
+          />
+          <img
+            src="@/assets/searchIcon-night.png"
+            class="searchIcon"
+            alt=""
+            v-if="nightMode"
+          />
+          <img src="@/assets/searchIcon.png" class="searchIcon" alt="" v-else />
         </div>
-        <div
-          class="lockWrapper"
-          v-if="createLock"
-          :class="nightMode ? 'lockWrapper-night' : ''"
-        >
-          <h3 class="message">
-            Gain investors’ trust by locking your project’s liquidity. This
-            section is only for project deployer.
-          </h3>
-          <div class="searchbox">
-            <input
-              type="text"
-              class="searchInput"
-              placeholder="Enter token contract address"
-            />
-            <img
-              src="@/assets/searchIcon-night.png"
-              class="searchIcon"
-              alt=""
-            />
-          </div>
-        </div>
-        <ul class="cards" v-else>
-          <li
-            class="card"
-            v-for="(card, index) in cards"
-            :key="index"
-            :class="nightMode ? 'card-night' : ''"
+        <div class="createLock">
+          <p
+            :class="createLock ? 'active-lock' : ''"
+            @click="createLock = true"
           >
+            createLock
+          </p>
+          <p
+            :class="createLock ? '' : 'active-lock'"
+            @click="createLock = false"
+          >
+            Your lock
+          </p>
+        </div>
+      </div>
+      <div
+        class="lockWrapper"
+        v-if="createLock"
+        :class="nightMode ? 'lockWrapper-night' : ''"
+      >
+        <h3 class="message">
+          Gain investors’ trust by locking your project’s liquidity. This
+          section is only for project deployer.
+        </h3>
+        <div class="searchbox">
+          <input
+            type="text"
+            class="searchInput"
+            placeholder="Enter token contract address"
+          />
+          <img src="@/assets/searchIcon-night.png" class="searchIcon" alt="" />
+        </div>
+      </div>
+      <ul class="cards" v-else>
+        <li
+          class="card-col"
+          v-for="(card, index) in cards"
+          :key="index"
+          :class="nightMode ? 'card-night' : ''"
+        >
+          <div @click="toggleExpanded(card)" class="card">
             <div class="card-heading">
               <img
                 :src="require(`@/assets/${card.icon}`)"
@@ -90,10 +82,39 @@
               <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
               Lock
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+          <div class="expanded" v-if="isExpanded(card)">
+            <h3>Pair</h3>
+            <div class="item-flex-between">
+              <p>Links</p>
+              <a :href="card.links"
+                ><img
+                  :src="require(`@/assets/${card?.icon}`)"
+                  alt=""
+                  class="icon1"
+              /></a>
+            </div>
+            <div class="item-flex-between">
+              <p>Contract</p>
+              <p>{{ card.contract }}</p>
+            </div>
+            <div class="item-flex-between">
+              <p>TERA</p>
+              <a :href="card.links"
+                ><div class="icons">
+                  <img
+                    :src="require(`@/assets/${card?.icon}`)"
+                    alt=""
+                    class="icon1"
+                  />
+                  </div
+              ></a>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
+  </div>
 </template>
 
 <script>
@@ -101,46 +122,65 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      expandedTab: null,
       createLock: false,
       showSortPopup: false,
       cards: [
         {
           icon: "eth-icon.png",
-          title: "ETHEREUM",
+          title: "ETH",
           apr: 99.9,
           nextIn: "6 Months, 3 Days",
           amount: 38.72,
+          links: "etherscan.com",
+          contract: "0xdre573gghd737dbbd9728",
         },
         {
           icon: "eth-icon.png",
-          title: "ETHEREUM",
+          title: "ETH",
           apr: 99.9,
           nextIn: "2 Months, 25 Days",
           amount: 38.72,
+          links: "etherscan.com",
+          contract: "0xdre573gghd737dbbd9728",
         },
         {
           icon: "eth-icon.png",
-          title: "ETHEREUM",
+          title: "ETH",
           apr: 99.9,
           nextIn: "3 Months, 10 Days",
           amount: 38.72,
+          links: "etherscan.com",
+          contract: "0xdre573gghd737dbbd9728",
         },
         {
           icon: "eth-icon.png",
-          title: "ETHEREUM",
+          title: "ETH",
           apr: 99.9,
           nextIn: "6 Months, 0 Days",
           amount: 38.72,
+          links: "etherscan.com",
+          contract: "0xdre573gghd737dbbd9728",
         },
         {
           icon: "eth-icon.png",
-          title: "ETHEREUM",
+          title: "ETH",
           apr: 99.9,
           nextIn: "12 Months, 11 Days",
           amount: 38.72,
+          links: "etherscan.com",
+          contract: "0xdre573gghd737dbbd9728",
         },
       ],
     };
+  },
+  methods: {
+    toggleExpanded(item) {
+      this.expandedTab = this.expandedTab === item ? null : item;
+    },
+    isExpanded(item) {
+      return this.expandedTab === item;
+    },
   },
   computed: {
     ...mapState(["nightMode"]),
@@ -149,8 +189,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
+li {
+  list-style: none;
+}
 .tokenLocker {
   padding: 70px 0;
 }
@@ -340,15 +381,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    border-radius: 8px 8px 0px 0px;
     padding: 42px 38px;
     background: linear-gradient(
       95.34deg,
       rgba(9, 151, 110, 0.1) -21.44%,
       rgba(8, 79, 101, 0.1) 108.23%
     );
-    border-radius: 8px;
-    margin-bottom: 40px;
+    &:hover{
+      cursor: pointer;
+    }
+    
     @media only screen and (max-width: 980px) {
       flex-direction: column;
       align-items: flex-start;
@@ -450,4 +493,57 @@ export default {
     }
   }
 }
+.card-col {
+    margin-bottom: 40px;
+    
+}
+
+.expanded {
+    background: whitesmoke;
+    padding: 20px 40px;
+        border-radius: 0px 0px 8px 8px;
+    background: linear-gradient(
+      95.34deg,
+      rgba(9, 151, 110, 0.1) -21.44%,
+      rgba(8, 79, 101, 0.1) 108.23%
+    );
+
+}
+li {
+    list-style: none;
+}
+
+.item-flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid gainsboro;
+    height: 50px;
+    padding: 10px 0;
+
+    a img {
+          height: 30px;
+          width: 30px;
+          padding: 8px;
+          border-radius: 50%;
+        }
+    .icon1 {
+          background-color: #172852;
+          transform: translateX(0px);
+          height: 30px;
+          width: 30px;
+          padding: 8px;
+          border-radius: 50%;
+        }
+    
+        .icons {
+        margin-right: 0px;
+        img {
+          height: 30px;
+          width: 30px;
+          padding: 8px;
+          border-radius: 50%;
+        }
+      }
+    }
 </style>
