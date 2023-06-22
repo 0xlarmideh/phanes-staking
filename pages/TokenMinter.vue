@@ -38,6 +38,14 @@
           </form>
         </div>
       </div>
+      <div>
+                <div><p>Token Name: Ethereum</p>
+                <p>Token Symbol: ETH</p>
+                <p>Total Supply: 100,0000,000</p>
+                <p>Address: 0X5783BBD6758484HBF747BB</p></div>
+                
+
+        </div>
     </div>
     <div class="black-box">
         <div>
@@ -109,10 +117,10 @@ export default {
 .black-box {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 110px;
     padding: 20px;
             div {
-                background-color: black;
+                background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
                 min-height: 400px;
                 min-width: 600px;
                 margin: 150px 50px;

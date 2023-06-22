@@ -81,8 +81,8 @@
               </div>
             </div>
             <div class="col">
-              <h3 class="title">APR</h3>
-              <p class="value">{{ card.apr }}%</p>
+              <h3 class="title">PRICE</h3>
+              <p class="value">${{ card.apr }}</p>
             </div>
             <div class="col">
               <h3 class="title">Locked for</h3>

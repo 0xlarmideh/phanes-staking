@@ -10,6 +10,7 @@
     <div class="overlay" @click="toggleConnectWalletPopup(false)" v-show="showWalletPopup"></div>
     <ConnectWalletPopup v-show="showWalletPopup"/>
 
+    <div class="overlay" @click="toggleMintTokenPopup(false)" v-show="showMintTokenPopup"></div>
     <MintTokenPopup v-show="showMintTokenPopup"/>
     <MintTokenSucess v-show="showMintTokenSucess"/>
 

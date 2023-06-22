@@ -67,8 +67,8 @@
               <h3 class="title">{{ card.title }}</h3>
             </div>
             <div class="col">
-              <h3 class="title">APR</h3>
-              <p class="value">{{ card.apr }}%</p>
+              <h3 class="title">PRICE</h3>
+              <p class="value">${{ card.apr }}</p>
             </div>
             <div class="col">
               <h3 class="title">Locked for</h3>
@@ -133,7 +133,7 @@ export default {
           nextIn: "6 Months, 3 Days",
           amount: 38.72,
           links: "etherscan.com",
-          contract: "0xdre573gghd737dbbd9728",
+          contract: "0xdre573ef737dbbd9728",
         },
         {
           icon: "eth-icon.png",
@@ -142,7 +142,7 @@ export default {
           nextIn: "2 Months, 25 Days",
           amount: 38.72,
           links: "etherscan.com",
-          contract: "0xdre573gghd737dbbd9728",
+          contract: "0xdre573ef737dbbd9728",
         },
         {
           icon: "eth-icon.png",
@@ -151,7 +151,7 @@ export default {
           nextIn: "3 Months, 10 Days",
           amount: 38.72,
           links: "etherscan.com",
-          contract: "0xdre573gghd737dbbd9728",
+          contract: "0xdre573ef737dbbd9728",
         },
         {
           icon: "eth-icon.png",
@@ -160,7 +160,7 @@ export default {
           nextIn: "6 Months, 0 Days",
           amount: 38.72,
           links: "etherscan.com",
-          contract: "0xdre573gghd737dbbd9728",
+          contract: "0xdre573ef737dbbd9728",
         },
         {
           icon: "eth-icon.png",
@@ -169,7 +169,7 @@ export default {
           nextIn: "12 Months, 11 Days",
           amount: 38.72,
           links: "etherscan.com",
-          contract: "0xdre573gghd737dbbd9728",
+          contract: "0xdre573ef737dbbd9728",
         },
       ],
     };
@@ -499,7 +499,7 @@ li {
 }
 
 .expanded {
-    background: whitesmoke;
+    // background: whitesmoke;
     padding: 20px 40px;
         border-radius: 0px 0px 8px 8px;
     background: linear-gradient(

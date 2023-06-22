@@ -49,7 +49,7 @@ export default {
   // backdrop-filter: blur(20px);
   border: 2px solid #1bd19c;
   position: fixed;
-  top: 10%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
