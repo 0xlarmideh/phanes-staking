@@ -96,10 +96,11 @@
               <h3 class="title">liquidity</h3>
               <p class="value liquidityVal">{{ card.liquidity }}</p>
             </div>
-            <div class="lockBtn">
+            <NuxtLink to="/liquiditylocker/view-lock"><div class="lockBtn">
               <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
-              Lock
-            </div>
+              View Lock
+              
+            </div></NuxtLink>
           </div>
           <div class="expanded" v-if="isExpanded(card)">
             <h3>Pair</h3>
@@ -238,6 +239,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+  color: white;
+}
 .liquidityLocker {
   padding: 70px 0;
 }
@@ -510,7 +515,7 @@ export default {
       color: #fff;
       font-weight: 700;
       font-size: 18px;
-      width: 134px;
+      padding: 0 20px;
       height: 46px;
       background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
       border-radius: 8px;

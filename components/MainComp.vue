@@ -32,14 +32,14 @@
         </table>
     </div>
     <div class="circualarChart">
-        <div class="popup" :class="nightMode? 'popup-night':''">
+        <!-- <div class="popup" :class="nightMode? 'popup-night':''">
             <div class="popup-header">
                 <img :src="require(`@/assets/${selectedToken.icon}`)" alt="" class="icon">
                 <p class="title">{{selectedToken.title}}</p>
             </div>
             <p class="sub-heading">Allocation</p>
             <p class="value">{{selectedToken.value}}%</p>
-        </div>
+        </div> -->
         <DoughnutChart/>
     </div>
     

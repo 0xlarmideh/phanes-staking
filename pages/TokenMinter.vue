@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="tokenMinter" :class="nightMode ? 'tokenMinter-night' : ''">
       <img src="@/assets/tokenMinterbg.png" alt="" class="tokenMinterbg" />
       <div class="row">
@@ -29,7 +29,19 @@
             </label>
             <label for="deciamls">
               <h3 class="title">Decimals</h3>
-              <input type="number" id="deciamls" placeholder="recommended 18" />
+              <div class="black-box-reference">
+                <input type="number" id="deciamls" placeholder="recommended 18" />
+              <div class="black-box">
+                <div>
+                  <div>
+                    <p>Token Name: Ethereum</p>
+                    <p>Token Symbol: ETH</p>
+                    <p>Total Supply: 100,0000,000</p>
+                    <p>Address: 0X5783BBD6758484HBF747BB</p>
+                  </div>
+                </div>
+              </div>
+              </div>
             </label>
 
             <div href="#" class="newToken" @click="toggleMintTokenPopup(true)">
@@ -38,25 +50,6 @@
           </form>
         </div>
       </div>
-      <div>
-                <div><p>Token Name: Ethereum</p>
-                <p>Token Symbol: ETH</p>
-                <p>Total Supply: 100,0000,000</p>
-                <p>Address: 0X5783BBD6758484HBF747BB</p></div>
-                
-
-        </div>
-    </div>
-    <div class="black-box">
-        <div>
-                <div><p>Token Name: Ethereum</p>
-                <p>Token Symbol: ETH</p>
-                <p>Total Supply: 100,0000,000</p>
-                <p>Address: 0X5783BBD6758484HBF747BB</p></div>
-                
-
-        </div>
-      
     </div>
   </div>
 </template>
@@ -114,32 +107,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.black-box-reference {
+  position: relative;
+}
 .black-box {
-    position: absolute;
-    right: 0;
-    top: 110px;
-    padding: 20px;
-            div {
-                background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
-                min-height: 400px;
-                min-width: 600px;
-                margin: 150px 50px;
-                border-radius: 20px;
-                color: white;
-                padding: 36px;
-                font-family: monospace;
-                font-size: 24px;
-                div {
-                    padding: 0;
-                    margin: 0;
-                    max-width: 100%;
-                    max-height: fit-content;
-                    p {
-                        margin-bottom: 5px;
-                    }
-                }
-            }
-        }
+  position: absolute;
+  right: -650px;
+  bottom: 0px;
+  margin-bottom: 32px;
+  padding: 0px 20px;
+  div {
+    background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
+    min-height: 400px;
+    min-width: 550px;
+    margin: 0px 50px;
+    border-radius: 20px;
+    color: white;
+    padding: 36px;
+    font-family: monospace;
+    font-size: 24px;
+    div {
+      padding: 0;
+      margin: 0;
+      max-width: 100%;
+      max-height: fit-content;
+      p {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
 .tokenMinter {
   min-height: 882px;
   position: relative;

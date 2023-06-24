@@ -80,11 +80,11 @@
             </div>
             <div class="lockBtn">
               <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
-              Lock
+              View Lock
             </div>
           </div>
           <div class="expanded" v-if="isExpanded(card)">
-            <h3>Pair</h3>
+            <h3>TOKEN</h3>
             <div class="item-flex-between">
               <p>Links</p>
               <a :href="card.links"
@@ -450,7 +450,8 @@ li {
       color: #fff;
       font-weight: 700;
       font-size: 18px;
-      width: 134px;
+      padding: 0px 20px;
+      // width: 134px;
       height: 46px;
       background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
       border-radius: 8px;
