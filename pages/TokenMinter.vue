@@ -30,17 +30,36 @@
             <label for="deciamls">
               <h3 class="title">Decimals</h3>
               <div class="black-box-reference">
-                <input type="number" id="deciamls" placeholder="recommended 18" />
-              <div class="black-box">
-                <div>
+                <input
+                  type="number"
+                  id="deciamls"
+                  placeholder="recommended 18"
+                />
+                <div class="black-box">
                   <div>
-                    <p>Token Name: Ethereum</p>
-                    <p>Token Symbol: ETH</p>
-                    <p>Total Supply: 100,0000,000</p>
-                    <p>Address: 0X5783BBD6758484HBF747BB</p>
+                    <div>
+                      <h3>Phanes Token Minter (PMNT)</h3>
+                      <br />
+                      <p>
+                        Create your own fully PRC-20 compliant token in a few
+                        minutes using PMNT. Creating digital assets (tokens)
+                        shouldn't be a headache, this is why we have added
+                        zero-code token minting to create your own token in a
+                        few simple steps.
+                      </p>
+                      <br />
+                      <p>PMNT Token Features</p>
+                      <p>
+                        ✅ No hidden mint function <br />
+                        ✅ No owner / admin functions<br />
+                        ✅ Verified and authenticated code of the token contract
+                        itself<br />
+                        ✅ Fully PRC-20 compliant<br />
+                        ✅ Fully decentralised<br />
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
             </label>
 
@@ -112,25 +131,30 @@ export default {
 }
 .black-box {
   position: absolute;
-  right: -650px;
+  right: -790px;
   bottom: 0px;
   margin-bottom: 32px;
   padding: 0px 20px;
   div {
     background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
-    min-height: 400px;
-    min-width: 550px;
+    min-height: calc(2*32px + 4*83px - 32px);
+    max-width: 700px;
     margin: 0px 50px;
     border-radius: 20px;
     color: white;
     padding: 36px;
-    font-family: monospace;
-    font-size: 24px;
+    // font-family: monospace;
+    font-size: 17px;
     div {
       padding: 0;
       margin: 0;
       max-width: 100%;
       max-height: fit-content;
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+      }
       p {
         margin-bottom: 5px;
       }
@@ -205,6 +229,7 @@ export default {
         font-size: 22px;
         color: #070e0c;
         margin-bottom: 12px;
+        
       }
       input[type="number"],
       input[type="text"] {

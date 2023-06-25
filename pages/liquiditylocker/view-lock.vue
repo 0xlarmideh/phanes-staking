@@ -2,41 +2,42 @@
   <div class="top-container">
     <div class="liquidity-container">
       <div class="liquidity-header flex-between">
-        <div>x</div>
-        <NuxtLink class="lockBtn" to="/liquiditylocker/view-lock">
+        <div class="back-btn" @click="goBack"><Icon icon="ep:back" width="36" /></div>
+        <NuxtLink class="lockBtn" to="/liquiditylocker/lock-liquidity">
           <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
           Lock Liquidity
         </NuxtLink>
       </div>
       <div class="uniswap-pair">
-        <p>Uniswap V2 pair:</p>
-        <div>0xcaf34673663783</div>
+        <p>PulseX V1 pair:</p>
+        <div>0x678af34673663783</div>
       </div>
+      <a href="gopulse.com" class="pair-owner">Pair owner: 0x0D73****4e2</a>
       <p class="locked-heading">Locked Liquidity</p>
       <h3 class="locked-percentage">85.0{{"%"}}</h3>
       <div class="locked-liquidity">
-        <div class="lock-token-icon"></div>
+        <div class="lock-token-icon"><img src="@/assets/PLS.png" alt="left token" /></div>
         <div class="divider"></div>
-        <div class="lock-percentage"></div>
+        <div class="lock-percentage"><Icon icon="material-symbols:lock" width="66px" /></div>
         <div class="divider"></div>
-        <div class="lock-token-icon"></div>
+        <div class="lock-token-icon"><img src="@/assets/logoPHNS.png" alt="left token" /></div>
+      </div>
+      <div class="token-names flex-between">
+        <P>PLS</P>
+        <P>PHNS</P>
       </div>
       <div class="flex-between">
-        <P>WETH</P>
-        <P>FLOKI</P>
+        <div class="flex-green"><Icon icon="material-symbols:lock-outline" width="18" /><img src="@/assets/PLS.png" alt="locked token" width="18px" />1.2k</div>
+        <div class="flex-green">79.49B<img src="@/assets/logoPHNS.png" width="18px" alt="locked token" /><Icon icon="material-symbols:lock-outline" width="18" /></div>
       </div>
       <div class="flex-between">
-        <div>1.2k</div>
-        <div>79.49B</div>
-      </div>
-      <div class="flex-between">
-        <div>1.5k</div>
-        <div>99.49B</div>
+        <div class="flex-align-center"><Icon icon="fluent:drop-12-regular" width="18" /><img src="@/assets/PLS.png" alt="locked token" width="18px" />1.5k (0%)</div>
+        <div class="flex-align-center">(1.2%) 99.49B<img src="@/assets/logoPHNS.png" width="18px" alt="locked token" /><Icon icon="fluent:drop-12-regular" width="18" /></div>
       </div>
       <div class="chart-views">
-        <div>Etherscan</div>
-        <div>Uniswap</div>
-        <div>Dext</div>
+        <a href="gopulse.com"><div>Explorer</div><Icon icon="iconoir:arrow-br" :rotate="3" /></a>
+        <a href="gopulse.com"><div>PulseX</div><Icon icon="iconoir:arrow-br" :rotate="3" /></a>
+        <a href="gopulse.com"><div>Chart</div><Icon icon="iconoir:arrow-br" :rotate="3" /></a>
       </div>
       <div class="flex-between">
         <p>Total LP tokens</p>
@@ -50,18 +51,16 @@
       <div class="liquidity-locks">
         <h3>Liquidity Locks</h3>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium
-        praesentium ex culpa non quod ipsum blanditiis voluptatem? Atque,
-        suscipit deleniti.
+        Note: Only liquidity pool tokens are locked, not the actual USD value. The USD value changes as people trade and more liquidity token are minted as more the pool increases.
       </p></div>
       <div class="unlock-section">
         <div class="flex-between unlock-date">
           <p>Value</p>
           <p>Unlock date</p>
         </div>
-        <div class="flex-between unlock-token-value">
-          <p>$0</p>
-          <p>in 2 years</p>
+        <div class="flex-between unlock-token-value-container">
+          <p class="unlock-token-value">$0</p>
+          <p class="unlock-token-year">in 2 years</p>
         </div>
       </div>
     </div>
@@ -69,10 +68,42 @@
 </template>
 
 <script>
-export default {};
+import { Icon } from '@iconify/vue2';
+export default {
+  components: {
+    Icon,
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
+
+.flex-align-center, .flex-green {
+  display: flex;
+  align-items: center;
+  
+  gap: 3px;
+}
+
+.flex-green {
+  color: rgb(47, 255, 134);
+}
+
+.pair-owner {
+  color: gainsboro;
+  display: flex;
+  justify-content: center;
+
+}
+.token-names {
+  font-weight: 500;
+  font-size: 22px;
+}
 .flex-between {
   display: flex;
   justify-content: space-between;
@@ -96,6 +127,9 @@ div.top-container {
   .liquidity-header {
     font-size: 18px;
     margin: 0;
+    .back-btn {
+      cursor: pointer;
+    }
     .lockBtn {
       display: flex;
       margin-bottom: 15px;
@@ -124,21 +158,30 @@ div.top-container {
     display: flex;
     align-items: center;
     .lock-token-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      background: #fff;
-    }
-    .divider {
-      width: calc(50% - 50px);
-      background: gainsboro;
-      height: 1px;
-    }
-    .lock-percentage {
       width: 60px;
       height: 60px;
-      border-radius: 30px;
-      background: #fff;
+      display: flex;
+      justify-content: center;
+      border-radius: 100%;
+      border: 3px solid white;
+      overflow: hidden;
+      padding: 10px 20px;
+    }
+    .divider {
+      width: calc(50% - 100px);
+      // background: gainsboro;
+      height: 2px;
+      border-bottom: 2px dashed white;
+    }
+    .lock-percentage {
+      width: 90px;
+      height: 90px;
+      // background: gainsboro;
+      border-radius: 100%;
+      border: 3px solid white;
+      display: flex;
+  justify-content: center;
+  align-items: center;
     }
   }
   .chart-views {
@@ -146,10 +189,17 @@ div.top-container {
     justify-content: center;
     padding: 8px;
     margin: 18px 0;
-    gap: 30px;
+    gap: 40px;
     border: 1px solid gainsboro;
     border-left: none;
     border-right: none;
+
+    a {
+      display: flex;
+      text-decoration: none;
+      color: gainsboro;
+      align-items: center;
+    }
   }
 
   .liquidity-locks {
@@ -183,9 +233,24 @@ div.top-container {
   margin: 10px 0;
 }
 .locked-percentage {
+  
   text-align: center;
-  font-size: 40px;
+  font-size: 36px;
   margin: 10px 0;
   font-weight: 500;
 }
+
+.unlock-token-value-container {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 21px;
+
+  .unlock-token-value {
+    color: rgb(47, 255, 134);
+  }
+  .unlock-token-date {
+    color: white;
+  }
+}
+
 </style>

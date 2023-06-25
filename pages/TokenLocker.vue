@@ -127,8 +127,8 @@ export default {
       showSortPopup: false,
       cards: [
         {
-          icon: "eth-icon.png",
-          title: "ETH",
+          icon: "PLS.png",
+          title: "PLS",
           apr: 99.9,
           nextIn: "6 Months, 3 Days",
           amount: 38.72,
@@ -136,8 +136,8 @@ export default {
           contract: "0xdre573ef737dbbd9728",
         },
         {
-          icon: "eth-icon.png",
-          title: "ETH",
+          icon: "PLS.png",
+          title: "PLS",
           apr: 99.9,
           nextIn: "2 Months, 25 Days",
           amount: 38.72,
@@ -145,8 +145,8 @@ export default {
           contract: "0xdre573ef737dbbd9728",
         },
         {
-          icon: "eth-icon.png",
-          title: "ETH",
+          icon: "PLS.png",
+          title: "PLS",
           apr: 99.9,
           nextIn: "3 Months, 10 Days",
           amount: 38.72,
@@ -154,8 +154,8 @@ export default {
           contract: "0xdre573ef737dbbd9728",
         },
         {
-          icon: "eth-icon.png",
-          title: "ETH",
+          icon: "PLS.png",
+          title: "PLS",
           apr: 99.9,
           nextIn: "6 Months, 0 Days",
           amount: 38.72,
@@ -163,8 +163,8 @@ export default {
           contract: "0xdre573ef737dbbd9728",
         },
         {
-          icon: "eth-icon.png",
-          title: "ETH",
+          icon: "PLS.png",
+          title: "PLS",
           apr: 99.9,
           nextIn: "12 Months, 11 Days",
           amount: 38.72,
@@ -518,7 +518,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid gainsboro;
+    border-top: 1px solid grey;
     height: 50px;
     padding: 10px 0;
 

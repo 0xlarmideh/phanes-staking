@@ -76,25 +76,25 @@
                 />
               </div>
               <div class="title">
-                <h3 class="title1">{{ card.title1 }}</h3>
-                <h3 class="title2">/{{ card.title2 }}</h3>
+                <h3 class="title1">{{ card?.title1 }}</h3>
+                <h3 class="title2">/{{ card?.title2 }}</h3>
               </div>
             </div>
             <div class="col">
-              <h3 class="title">PRICE</h3>
-              <p class="value">${{ card.apr }}</p>
+              <h3 class="title">DEX Index</h3>
+              <p class="value">{{ card?.index }}</p>
             </div>
             <div class="col">
               <h3 class="title">Locked for</h3>
-              <p class="value">{{ card.nextIn }}</p>
+              <p class="value">{{ card?.nextIn }}</p>
             </div>
             <div class="col">
               <h3 class="title">amount</h3>
-              <p class="value">{{ card.amount }}</p>
+              <p class="value">{{ card?.amount }}</p>
             </div>
             <div class="col">
               <h3 class="title">liquidity</h3>
-              <p class="value liquidityVal">{{ card.liquidity }}</p>
+              <p class="value liquidityVal">{{ card?.liquidity }}</p>
             </div>
             <NuxtLink to="/liquiditylocker/view-lock"><div class="lockBtn">
               <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
@@ -118,7 +118,7 @@
               <p>{{ card.contract }}</p>
             </div>
             <div class="item-flex-between">
-              <p>TERA</p>
+              <p>PHNS</p>
               <a :href="card.links"
                 ><div class="icons">
                   <img
@@ -149,11 +149,11 @@ export default {
       showSortPopup: false,
       cards: [
         {
-          icon1: "tera.png",
-          icon2: "eth-icon.png",
-          title1: "tera",
-          title2: "eth",
-          apr: 99.9,
+          icon1: "logoPHNS.png",
+          icon2: "PLS.png",
+          title1: "PHNS",
+          title2: "PLS",
+          index: "#4323",
           nextIn: "6 Months",
           amount: 38.72,
           liquidity: "6.23 M",
@@ -161,11 +161,11 @@ export default {
           contract: "0xdre573gghd737dbbd9728",
         },
         {
-          icon1: "tera.png",
-          icon2: "eth-icon.png",
-          title1: "tera",
-          title2: "eth",
-          apr: 99.9,
+          icon1: "logoPHNS.png",
+          icon2: "PLS.png",
+          title1: "PHNS",
+          title2: "PLS",
+          index: "#4323",
           nextIn: "6 Months",
           amount: 38.72,
           liquidity: "6.23 M",
@@ -173,11 +173,11 @@ export default {
           contract: "0xdre573gghd737dbbd9728",
         },
         {
-          icon1: "tera.png",
-          icon2: "eth-icon.png",
-          title1: "tera",
-          title2: "eth",
-          apr: 99.9,
+          icon1: "logoPHNS.png",
+          icon2: "PLS.png",
+          title1: "PHNS",
+          title2: "PLS",
+          index: "#4323",
           nextIn: "6 Months",
           amount: 38.72,
           liquidity: "6.23 M",
@@ -185,11 +185,11 @@ export default {
           contract: "0xdre573gghd737dbbd9728",
         },
         {
-          icon1: "tera.png",
-          icon2: "eth-icon.png",
-          title1: "tera",
-          title2: "eth",
-          apr: 99.9,
+          icon1: "logoPHNS.png",
+          icon2: "PLS.png",
+          title1: "PHNS",
+          title2: "PLS",
+          index: "#4323",
           nextIn: "6 Months",
           amount: 38.72,
           liquidity: "6.23 M",
@@ -197,11 +197,11 @@ export default {
           contract: "0xdre573gghd737dbbd9728",
         },
         {
-          icon1: "tera.png",
-          icon2: "eth-icon.png",
-          title1: "tera",
-          title2: "eth",
-          apr: 99.9,
+          icon1: "logoPHNS.png",
+          icon2: "PLS.png",
+          title1: "PHNS",
+          title2: "PLS",
+          index: "#4323",
           nextIn: "6 Months",
           amount: 38.72,
           liquidity: "6.23 M",
@@ -209,11 +209,11 @@ export default {
           contract: "0xdre573gghd737dbbd9728",
         },
         {
-          icon1: "tera.png",
-          icon2: "eth-icon.png",
-          title1: "tera",
-          title2: "eth",
-          apr: 99.9,
+          icon1: "logoPHNS.png",
+          icon2: "PLS.png",
+          title1: "PHNS",
+          title2: "PLS",
+          index: "#4323",
           nextIn: "6 Months",
           amount: 38.72,
           liquidity: "6.23 M",
@@ -585,7 +585,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid gainsboro;
+    border-top: 1px solid grey;
     height: 50px;
     padding: 10px 0;
 

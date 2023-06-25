@@ -11,11 +11,10 @@
     </div>
     <div class="text-flex">
       <div class="spinner"><img src="@/assets/eth.svg" /></div>
-      <h3>Confirm this transaction your wallet</h3>
-    <strong><p>Using a mobile wallet?</p></strong>
+      <h3>Approve this transaction in your wallet</h3>
+    <strong><p>Having a stuck tx?</p></strong>
     <p>
-      Sometimes it helps to close the mobile app and restart it if the
-      transaction is not shown in the wallet
+      Ensure there are is no pending transaction on your wallet before approving this transaction
     </p>
     </div>
   </div>
@@ -49,7 +48,7 @@ export default {
   // backdrop-filter: blur(20px);
   border: 2px solid #1bd19c;
   position: fixed;
-  top: 30%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
