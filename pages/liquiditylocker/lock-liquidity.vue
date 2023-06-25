@@ -35,7 +35,8 @@
         <div class="lock-tokens-box">
           <div class="flex-between">
             <div class="flex-col">
-              <strong>Fri 23 Nov, 2023 12:52</strong><p class="no-padding">in 5 months</p>
+              <strong class="bold-text">Fri 23 Nov, 2023 12:52</strong>
+              <p class="no-padding">in 5 months</p>
             </div>
             <div>
               <Icon icon="ep:calendar" width="24" />
@@ -210,8 +211,5 @@ div.top-container {
     color: gainsboro;
     margin-bottom: 30px;
   }
-  .no-padding {
-    margin: 0;
-    padding: 0;
-  }
+
 </style>
