@@ -67,11 +67,13 @@
 
 <script>
 import { Icon } from "@iconify/vue2";
+import { mapMutations } from "vuex";
 export default {
   components: {
     Icon,
   },
   methods: {
+    
     goBack() {
       this.$router.go(-1);
     },

@@ -22,11 +22,15 @@
           </div>
         </div>
         <div class="inputToken" v-if="activeToken">
-          <input type="text" placeholder=" Input Token Contract  Address" />
-          <button class="load">Load</button>
+          <input v-model="ethAddress" type="text" placeholder=" Input Token Contract  Address" />
+          <div class="flex-between">
+            <div v-if="showBalance">You have 193.56 PLS (PulseChain Token)</div>
+            <button @click="toggleBalance" class="load">Load</button>
+          </div>
+          
         </div>
       </div>
-      <div class="recipients">
+      <div class="recipients" v-if="showBalance">
         <h3>Recipients and amount</h3>
         <p>
           Enter one address and amount in <span v-if="activeToken">Token</span
@@ -77,25 +81,37 @@
         </p>
         <button
           class="sendBtn"
-          v-if="addresses.length > 0 && remaining !== 'Not enough balance'"
-          @click="send"
+          
+          @click="toggleModal"
         >
           Send
         </button>
       </div>
     </div>
+    <MultiSenderPopup v-if="modalPopup" @toggleMultiPopup="toggleMultiPopup" :showContent1="modalContent1" :showContent2="modalContent2" :showContent3="modalContent3" />
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import MultiSenderPopup from "~/components/MultiSenderPopup.vue";
 import MultisenderContract from "@/assets/abi/MultisenderABI.json";
+import { set } from 'vue';
 export default {
+  components: {
+    MultiSenderPopup,
+  },
   data() {
     return {
       activeToken: false,
       addresses: [],
       totalAmount: 0,
+      showBalance: false,
+      ethAddress: "",
+      modalPopup: false,
+      modalContent1: false,
+      modalContent2: false,
+      modalContent3: false,
     };
   },
   computed: {
@@ -115,6 +131,37 @@ export default {
   },
   methods: {
     ...mapMutations(["toggleMintTokenPopup"]),
+    toggleModal() {
+      this.modalContent3 = true
+      this.modalPopup = !this.modalPopup;
+
+      // Change the inner content of the modal to showContent1 after 2 seconds, then to showContent2 after 2 seconds, 
+      setTimeout(() => {
+        this.modalContent3 = false;
+        this.modalContent1 = true;
+        setTimeout(() => {
+          this.modalContent1 = false;
+          this.modalContent2 = true;
+        }, 3000);
+      }, 3000);
+
+    },
+    toggleMultiPopup() {
+      this.modalPopup = false;
+      this.modalContent1 = false;
+      this.modalContent2 = false;
+      this.modalContent3 = false;
+    },
+    toggleBalance() {
+      // test if ethAddress matches ETH regex
+      const ethRegex = /^0x[a-fA-F0-9]{40}$/;
+      if (ethRegex.test(this.ethAddress)) {
+        this.showBalance = true;
+      } else {
+        this.showBalance = false;
+        alert("Invalid ETH address")
+      }
+    },
     confirmData() {
       const textarea = document.getElementById("addresses");
       const lines = textarea.value.split("\n");
@@ -261,7 +308,17 @@ export default {
           outline: 1px solid #09976e;
         }
       }
-      .load {
+
+      .flex-between {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+
+        div {
+          font-size: 18px;
+        }
+
+        .load {
         width: 96px;
         height: 40px;
         background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
@@ -275,6 +332,8 @@ export default {
           cursor: pointer;
         }
       }
+      }
+      
     }
   }
   .recipients {
@@ -365,7 +424,7 @@ export default {
           align-items: center;
           justify-content: space-between;
           .item-heading {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 24px;
             color: #ffffff;
             @media only screen and (max-width: 800px) {
@@ -390,8 +449,8 @@ export default {
           .title,
           .amount,
           .address {
-            font-weight: 500;
-            font-size: 24px;
+            font-weight: 400;
+            font-size: 19px;
             color: #ffffff;
             @media only screen and (max-width: 1080px) {
               font-size: 18px;
