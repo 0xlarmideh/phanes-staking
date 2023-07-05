@@ -49,7 +49,7 @@
         <button class="green-btn">Me</button>
         <button class="normal-btn" >Someone else</button>
       </div>
-      <p class="section-title">Fee options</p>
+      <p class="section-title">Fee (excluding gas fee)</p>
       <div class="token-balance">
         <button class="big-btn">14 PLS</button>
         <p class="small-text">Your balance is 334 PLS</p>
@@ -190,8 +190,9 @@ div.top-container {
   }
 
   .big-btn {
-    width: 250px;
-    height: 100px;
+    width: 160px;
+    height: 60px;
+    border-radius: 8px;
     font-size: 22px;
   }
 

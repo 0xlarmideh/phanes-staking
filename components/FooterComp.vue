@@ -58,9 +58,9 @@ export default {
 <style lang="scss" scoped>
     .footer{
         background: linear-gradient(rgba(10, 134, 156, 0.05), rgba(10, 134, 156, 0.034));
-        padding-bottom: 50px;
+        padding-bottom: 30px;
         .columns{
-            padding: 109px 24px;
+            padding: 50px 24px 40px 24px;
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
