@@ -81,10 +81,10 @@
         </p>
         <button
           class="sendBtn"
-          
+          v-if="addresses.length > 0"
           @click="toggleModal"
         >
-          Send
+          Approve
         </button>
       </div>
     </div>
