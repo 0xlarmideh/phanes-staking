@@ -7,7 +7,7 @@
     <StakingPopup v-show="showStakingPopup"/>
 
     <!-- Connect wallet Popup -->
-    <div class="overlay" @click="toggleConnectWalletPopup(false)" v-show="showWalletPopup"></div>
+    <!-- <div class="overlay" @click="toggleConnectWalletPopup(false)" v-show="showWalletPopup"></div> -->
     <ConnectWalletPopup v-show="showWalletPopup"/>
 
     <div class="overlay" @click="toggleMintTokenPopup(false)" v-show="showMintTokenPopup"></div>
