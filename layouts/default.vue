@@ -75,9 +75,7 @@ html{
   background: #f3f3f3;
   scroll-behavior: smooth;
 }
-body.modal-open{
-  overflow: hidden;
-}
+
 a{
   text-decoration: none;
 }
