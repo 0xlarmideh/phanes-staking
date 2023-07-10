@@ -21,8 +21,8 @@
             v-for="(wallet, index) in walletProviders"
             :key="index"
           >
-            <img :src="require(`@/assets/wallets/${wallet.icon}`)" :alt="wallet.name" />
-            <h4>{{ wallet.name }}</h4>
+            <img :src="require(`@/assets/wallets/${wallet?.icon}`)" :alt="wallet.name" />
+            <h4>{{ wallet?.name }}</h4>
           </div>
         </div>
       </div>

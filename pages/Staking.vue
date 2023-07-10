@@ -29,7 +29,7 @@
           Information
         </button>
       </div>
-      <div v-if="cards[tokenIndex].showSubscribeDetails">
+      <div v-if="showSubscribeDetails">
         <!-- <h3>Connect your wallet</h3> -->
         <h3>Stake LP token</h3>
         <div class="grey-bg">
@@ -66,7 +66,10 @@
           >
             Confirm
           </button>
-          <button class="modal-btn btn-cancel" @click="toggleSubscribeModal(tokenIndex)">
+          <button
+            class="modal-btn btn-cancel"
+            @click="toggleSubscribeModal(tokenIndex)"
+          >
             Cancel
           </button>
         </div>
@@ -187,12 +190,27 @@
                 />
                 <img src="@/assets/favourite.png" alt="" class="icon" v-else />
               </div>
-              <div class="optionIcon" >
-                <div class="optionBtn" @click="toggleShowOptions(index)"><Icon icon="iwwa:option-horizontal" color="white" :rotate="1" /></div>
+              <div class="optionIcon">
+                <div class="optionBtn" @click="toggleShowOptions(index)">
+                  <Icon
+                    icon="iwwa:option-horizontal"
+                    color="white"
+                    :rotate="1"
+                  />
+                </div>
                 <div class="option-details" v-if="card.showOptions">
-                <a class="normal-link" href="#"><Icon icon="solar:dollar-broken" :rotate="1" /> Reward Pool</a>
-                <a class="normal-link" href="#"><Icon icon="quill:link-out" :rotate="1" /> Program Contract</a>
-                <a class="normal-link" href="#"><Icon icon="ph:link" color="black" :rotate="1" /> Copy Permalink</a>
+                  <a class="normal-link" href="#"
+                    ><Icon icon="solar:dollar-broken" :rotate="1" /> Reward
+                    Pool</a
+                  >
+                  <a class="normal-link" href="#"
+                    ><Icon icon="quill:link-out" :rotate="1" /> Program
+                    Contract</a
+                  >
+                  <a class="normal-link" href="#"
+                    ><Icon icon="ph:link" color="black" :rotate="1" /> Copy
+                    Permalink</a
+                  >
                 </div>
               </div>
             </div>
@@ -240,13 +258,13 @@ export default {
   data() {
     return {
       stakeAmount: null,
-      
+
       modalPopup: false,
       modalContent1: false,
       modalContent2: false,
       modalContent3: false,
       infoText: "1",
-      
+
       showInfo: false,
       showSubscribeDetails: false,
       tokenIndex: null,
@@ -310,8 +328,9 @@ export default {
   methods: {
     ...mapMutations(["toggleStakingPopup"]),
     toggleSubscribeModal(index) {
-      this.cards[index].showSubscribeModal = !this.cards[index].showSubscribeModal;
-    //   console.log(this.cards[index].showSubscribeModal);
+      this.cards[index].showSubscribeModal =
+        !this.cards[index].showSubscribeModal;
+      //   console.log(this.cards[index].showSubscribeModal);
       this.showInfo = true;
       this.showSubscribeDetails = false;
       this.tokenIndex = index;
@@ -376,39 +395,36 @@ button {
 }
 
 .optionIcon {
-  
   position: relative;
 }
 
 .optionBtn {
-    cursor: pointer;
-    background: rgb(170, 166, 166);
+  cursor: pointer;
+  background: rgb(170, 166, 166);
   padding: 4px 8px;
   border-radius: 8px;
 }
 .normal-link {
-        text-decoration: none;
-        color: black;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
 .option-details {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    color: black;
-    padding: 15px 10px;
-    border-radius: 8px;
-    width: 200px;
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    
-
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  color: black;
+  padding: 15px 10px;
+  border-radius: 8px;
+  width: 200px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .dot-btn {
