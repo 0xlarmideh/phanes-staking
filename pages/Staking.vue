@@ -1,7 +1,14 @@
 <template>
   <div class="staking" :class="nightMode ? 'staking-night' : ''">
-    <div class="subscribe-modal" v-if="showSubscribeModal">
-      <button class="close" @click="toggleSubscribeModal">X</button>
+    <MultiSenderPopup
+      v-if="modalPopup"
+      @toggleMultiPopup="toggleMultiPopup"
+      :showContent1="modalContent1"
+      :showContent2="modalContent2"
+      :showContent3="modalContent3"
+    />
+    <div class="subscribe-modal" v-if="cards[tokenIndex]?.showSubscribeModal">
+      <button class="close" @click="toggleSubscribeModal(tokenIndex)">X</button>
       <div class="modal-header">
         <h3 class="token-name">{{ cards[tokenIndex]?.heading }}</h3>
         <p class="snippet">{{ cards[tokenIndex]?.snippet }}</p>
@@ -22,7 +29,7 @@
           Information
         </button>
       </div>
-      <div v-if="showSubscribeDetails">
+      <div v-if="cards[tokenIndex].showSubscribeDetails">
         <!-- <h3>Connect your wallet</h3> -->
         <h3>Stake LP token</h3>
         <div class="grey-bg">
@@ -31,11 +38,22 @@
             <p class="card-value-white">Balance</p>
           </div>
           <div class="add-grey-bg flex-between">
-            <p class="card-value-white">0</p>
+            <!-- <p class="card-value-white">0</p> -->
+            <input
+              type="text"
+              class="card-value-white input-clear"
+              placeholder="0"
+              v-model="stakeAmount"
+            />
             <p class="card-value-white">PLSX-WPLS LP</p>
           </div>
+          <p class="token-value" v-if="stakeAmount">
+            {{ (stakeAmount / 3).toFixed(2) }} USD
+          </p>
         </div>
-        <div class="no-tokens"><a href="#">No tokens to stake, get PLSX/WPLS LP</a></div>
+        <div class="no-tokens">
+          <a href="#">No tokens to stake, get PLSX/WPLS LP</a>
+        </div>
         <div class="flex-between">
           <p>Annual ROI at current rates</p>
           <p>$0.00</p>
@@ -43,32 +61,55 @@
         <div class="btn-between btns-in">
           <button
             class="modal-btn btn-confirm"
+            @click="toggleModal"
+            :disabled="stakeAmount === 0 || stakeAmount === null"
           >
             Confirm
           </button>
-          <button
-            class="modal-btn btn-cancel"
-            @click="toggleSubscribeModal"
-          >
+          <button class="modal-btn btn-cancel" @click="toggleSubscribeModal(tokenIndex)">
             Cancel
           </button>
         </div>
         <a href="#" class="get-link">Get PLSX-WPLS LP</a>
       </div>
-      <div v-if="showInfo" class="flex-around grey-bg">
-        <div>
-          <p class="grey-title">APY</p>
-          <p class="card-value-white">{{ cards[tokenIndex]?.apy }}</p>
+      <div v-if="showInfo">
+        <div v-if="infoText === '1'" class="flex-around grey-bg">
+          <div>
+            <p class="grey-title">APY</p>
+            <p class="card-value-white">{{ cards[tokenIndex]?.apy }}</p>
+          </div>
+          <div>
+            <p class="grey-title">Max Multiplier</p>
+            <p class="card-value-white">
+              {{ cards[tokenIndex]?.maxMultiplier }}
+            </p>
+          </div>
+          <div>
+            <p class="grey-title">Duration</p>
+            <p class="card-value-white">{{ cards[tokenIndex]?.duration }}</p>
+          </div>
         </div>
-        <div>
-          <p class="grey-title">Max Multiplier</p>
-          <p class="card-value-white">{{ cards[tokenIndex]?.maxMultiplier }}</p>
+
+        <div v-if="infoText === '2'" class="flex-around grey-bg">
+          <div>
+            <p class="grey-title">Total Rewards</p>
+            <p class="card-value-white">
+              ${{ cards[tokenIndex]?.totalRewards }}
+            </p>
+          </div>
+          <div>
+            <p class="grey-title">Total Subscribed</p>
+            <p class="card-value-white">
+              ${{ cards[tokenIndex]?.totalSubscribed }}
+            </p>
+          </div>
         </div>
-        <div>
-          <p class="grey-title">Duration</p>
-          <p class="card-value-white">{{ cards[tokenIndex]?.duration }}</p>
+        <div class="flex-center">
+          <div @click="toggleInfoText1" class="dot-btn"></div>
+          <div @click="toggleInfoText2" class="dot-btn"></div>
         </div>
       </div>
+
       <div v-if="showInfo" class="grey-bg subscribe-details">
         <div>
           <p class="card-value-white">Description</p>
@@ -133,14 +174,27 @@
               <h3 class="title">{{ card.heading }}</h3>
               <p class="snippet">{{ card.snippet }}</p>
             </div>
-            <div class="favoriteIcon" @click="card.favourite = !card.favourite">
-              <img
-                src="@/assets/favourite-red.png"
-                alt=""
-                class="icon"
-                v-if="card.favourite"
-              />
-              <img src="@/assets/favourite.png" alt="" class="icon" v-else />
+            <div class="flex-gap">
+              <div
+                class="favoriteIcon"
+                @click="card.favourite = !card.favourite"
+              >
+                <img
+                  src="@/assets/favourite-red.png"
+                  alt=""
+                  class="icon"
+                  v-if="card.favourite"
+                />
+                <img src="@/assets/favourite.png" alt="" class="icon" v-else />
+              </div>
+              <div class="optionIcon" >
+                <div class="optionBtn" @click="toggleShowOptions(index)"><Icon icon="iwwa:option-horizontal" color="white" :rotate="1" /></div>
+                <div class="option-details" v-if="card.showOptions">
+                <a class="normal-link" href="#"><Icon icon="solar:dollar-broken" :rotate="1" /> Reward Pool</a>
+                <a class="normal-link" href="#"><Icon icon="quill:link-out" :rotate="1" /> Program Contract</a>
+                <a class="normal-link" href="#"><Icon icon="ph:link" color="black" :rotate="1" /> Copy Permalink</a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="column-wrapper">
@@ -176,10 +230,23 @@
 
 <script>
 import { mapMutations, mapState } from "vuex";
+import { Icon } from "@iconify/vue2";
+import MultiSenderPopup from "~/components/MultiSenderPopup.vue";
 export default {
+  components: {
+    Icon,
+    MultiSenderPopup,
+  },
   data() {
     return {
-      showSubscribeModal: false,
+      stakeAmount: null,
+      
+      modalPopup: false,
+      modalContent1: false,
+      modalContent2: false,
+      modalContent3: false,
+      infoText: "1",
+      
       showInfo: false,
       showSubscribeDetails: false,
       tokenIndex: null,
@@ -195,6 +262,8 @@ export default {
           totalRewards: 3154,
           totalSubscribed: 11808,
           favourite: false,
+          showOptions: false,
+          showSubscribeModal: false,
         },
         {
           heading: "Matter V1",
@@ -205,6 +274,8 @@ export default {
           totalRewards: 3154,
           totalSubscribed: 11808,
           favourite: false,
+          showOptions: false,
+          showSubscribeModal: false,
         },
         {
           heading: "Matter V1",
@@ -215,6 +286,8 @@ export default {
           totalRewards: 3154,
           totalSubscribed: 11808,
           favourite: false,
+          showOptions: false,
+          showSubscribeModal: false,
         },
         {
           heading: "Matter V1",
@@ -225,6 +298,8 @@ export default {
           totalRewards: 3154,
           totalSubscribed: 11808,
           favourite: false,
+          showOptions: false,
+          showSubscribeModal: false,
         },
       ],
     };
@@ -235,7 +310,8 @@ export default {
   methods: {
     ...mapMutations(["toggleStakingPopup"]),
     toggleSubscribeModal(index) {
-      this.showSubscribeModal = !this.showSubscribeModal;
+      this.cards[index].showSubscribeModal = !this.cards[index].showSubscribeModal;
+    //   console.log(this.cards[index].showSubscribeModal);
       this.showInfo = true;
       this.showSubscribeDetails = false;
       this.tokenIndex = index;
@@ -248,6 +324,36 @@ export default {
       this.showSubscribeDetails = true;
       this.showInfo = false;
     },
+    toggleInfoText1() {
+      this.infoText = "1";
+    },
+    toggleInfoText2() {
+      this.infoText = "2";
+    },
+    toggleModal() {
+      this.modalContent1 = false;
+      this.modalContent2 = false;
+      this.modalContent3 = true;
+      this.modalPopup = !this.modalPopup;
+
+      setTimeout(() => {
+        this.modalContent3 = false;
+        this.modalContent1 = true;
+        setTimeout(() => {
+          this.modalContent1 = false;
+          this.modalContent2 = true;
+        }, 3000);
+      }, 3000);
+    },
+    toggleMultiPopup() {
+      this.modalPopup = false;
+      this.modalContent1 = false;
+      this.modalContent2 = false;
+      this.modalContent3 = false;
+    },
+    toggleShowOptions(index) {
+      this.cards[index].showOptions = !this.cards[index].showOptions;
+    },
   },
 };
 </script>
@@ -257,20 +363,90 @@ button {
   cursor: pointer;
 }
 
-.no-tokens {
-    padding: 11px 0;
-    a {
-    color: red;
+.flex-center {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  align-items: center;
+}
+.flex-gap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
 
+.optionIcon {
+  
+  position: relative;
+}
+
+.optionBtn {
+    cursor: pointer;
+    background: rgb(170, 166, 166);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+.normal-link {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
+
+.option-details {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    color: black;
+    padding: 15px 10px;
+    border-radius: 8px;
+    width: 200px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+
+}
+
+.dot-btn {
+  cursor: pointer;
+  margin-top: 8px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: white;
+}
+
+.input-clear {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.token-value {
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 4px;
+  color: gainsboro;
+  // margin-left: 8px;
+}
+
+.no-tokens {
+  padding: 11px 0;
+  a {
+    color: red;
+  }
 }
 
 .get-link {
-    text-decoration: none;
-    color:rgb(45, 199, 158);
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
+  text-decoration: none;
+  color: rgb(45, 199, 158);
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
 }
 
 .page-title {
@@ -289,6 +465,12 @@ button {
 .grey-bg {
   background-color: rgb(12, 153, 115);
   padding: 20px;
+  border-radius: 8px;
+}
+
+.add-grey-bg {
+  padding: 10px;
+  background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
   border-radius: 8px;
 }
 
@@ -387,21 +569,19 @@ button {
     }
   }
   .btns-in {
-    border: none; 
-    
-    .btn-confirm {
-        border: 2px solid rgb(45, 199, 158);
-        background: none;
-        font-size: 15px;
+    border: none;
 
+    .btn-confirm {
+      border: 2px solid rgb(45, 199, 158);
+      background: none;
+      font-size: 15px;
     }
 
     .btn-cancel {
-        background: rgb(80, 162, 140);
-        font-size: 15px;
-
+      background: rgb(80, 162, 140);
+      font-size: 15px;
     }
-}
+  }
   .subscribe-details {
     display: flex;
     flex-direction: column;
