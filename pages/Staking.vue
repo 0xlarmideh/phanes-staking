@@ -2,15 +2,59 @@
   <div class="staking" :class="nightMode ? 'staking-night' : ''">
     <div class="subscribe-modal" v-if="showSubscribeModal">
       <button class="close" @click="toggleSubscribeModal">X</button>
-      <div class="modal-header"><h3 class="token-name">{{ cards[tokenIndex]?.heading }}</h3>
-      <p class="snippet">{{ cards[tokenIndex]?.snippet }}</p></div>
+      <div class="modal-header">
+        <h3 class="token-name">{{ cards[tokenIndex]?.heading }}</h3>
+        <p class="snippet">{{ cards[tokenIndex]?.snippet }}</p>
+      </div>
       <div class="btn-between">
-        <button class="modal-btn" :class="showSubscribeDetails ? 'modal-btn-blue' : '' " @click="toggleShowSubscribeDetails">Subscribe</button>
-        <button class="modal-btn" :class="showInfo ? 'modal-btn-blue' : '' "  @click="toggleShowInfo">Information</button>
+        <button
+          class="modal-btn"
+          :class="showSubscribeDetails ? 'modal-btn-blue' : ''"
+          @click="toggleShowSubscribeDetails"
+        >
+          Subscribe
+        </button>
+        <button
+          class="modal-btn"
+          :class="showInfo ? 'modal-btn-blue' : ''"
+          @click="toggleShowInfo"
+        >
+          Information
+        </button>
       </div>
       <div v-if="showSubscribeDetails">
-            <h3>Connect your wallet</h3>
+        <!-- <h3>Connect your wallet</h3> -->
+        <h3>Stake LP token</h3>
+        <div class="grey-bg">
+          <div class="flex-between">
+            <p class="card-value-white">Stake</p>
+            <p class="card-value-white">Balance</p>
+          </div>
+          <div class="add-grey-bg flex-between">
+            <p class="card-value-white">0</p>
+            <p class="card-value-white">PLSX-WPLS LP</p>
+          </div>
         </div>
+        <div class="no-tokens"><a href="#">No tokens to stake, get PLSX/WPLS LP</a></div>
+        <div class="flex-between">
+          <p>Annual ROI at current rates</p>
+          <p>$0.00</p>
+        </div>
+        <div class="btn-between btns-in">
+          <button
+            class="modal-btn btn-confirm"
+          >
+            Confirm
+          </button>
+          <button
+            class="modal-btn btn-cancel"
+            @click="toggleSubscribeModal"
+          >
+            Cancel
+          </button>
+        </div>
+        <a href="#" class="get-link">Get PLSX-WPLS LP</a>
+      </div>
       <div v-if="showInfo" class="flex-around grey-bg">
         <div>
           <p class="grey-title">APY</p>
@@ -59,6 +103,7 @@
       </div>
     </div>
     <div class="row">
+      <h1 class="page-title">Reward Programs</h1>
       <div class="filterbar" :class="nightMode ? 'filterbar-night' : ''">
         <div class="leftFilter" @click="toggleStakingPopup(true)">
           <img
@@ -209,11 +254,37 @@ export default {
 
 <style lang="scss" scoped>
 button {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.no-tokens {
+    padding: 11px 0;
+    a {
+    color: red;
+
+    }
+}
+
+.get-link {
+    text-decoration: none;
+    color:rgb(45, 199, 158);
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.page-title {
+  text-align: center;
+  margin-top: 36px;
+  line-height: 14px;
 }
 .flex-around {
   display: flex;
   justify-content: space-around;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
 }
 .grey-bg {
   background-color: rgb(12, 153, 115);
@@ -222,44 +293,43 @@ button {
 }
 
 .grey-title-box {
-    background: rgb(80, 162, 140);
-    padding: 6px 24px;
-    display: inline-block;
-    border-radius: 8px;
+  background: rgb(80, 162, 140);
+  padding: 6px 24px;
+  display: inline-block;
+  border-radius: 8px;
 }
 
-.card-value-white, .grey-title, .white-title {
-    font-size: 14px;
-    // line-height: 18px;
+.card-value-white,
+.grey-title,
+.white-title {
+  font-size: 14px;
+  // line-height: 18px;
 }
 
 .card-value-white {
-    color: white;
-    font-weight: 600;
-
+  color: white;
+  font-weight: 600;
 }
-.grey-title{
-    color: gainsboro;
-    font-weight: 400;
-
+.grey-title {
+  color: gainsboro;
+  font-weight: 400;
 }
 .white-title {
-    color: white;
-    font-weight: 400;
-
+  color: white;
+  font-weight: 400;
 }
 .staking {
   display: relative;
 }
 .subscribe-modal {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   position: fixed;
   top: 0;
   left: 50%;
-//   height: 600px;
-  width: 400px;
+  //   height: 600px;
+  width: 420px;
   margin-top: 20px;
   padding: 20px;
   background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
@@ -267,19 +337,17 @@ button {
   border-radius: 8px;
   z-index: 200;
   transform: translateX(-50%);
-  .modal-header{
-
-  
-  .token-name {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 28px;
-  }
-  .snippet {
-    font-size: 14px;
-    font-weight: 400;
-    color: gainsboro;
-  }
+  .modal-header {
+    .token-name {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 28px;
+    }
+    .snippet {
+      font-size: 14px;
+      font-weight: 400;
+      color: gainsboro;
+    }
   }
 
   .close {
@@ -299,6 +367,7 @@ button {
   .btn-between {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 8px;
     padding: 3px;
     border-radius: 8px;
     border: 2px solid white;
@@ -317,6 +386,22 @@ button {
       color: grey;
     }
   }
+  .btns-in {
+    border: none; 
+    
+    .btn-confirm {
+        border: 2px solid rgb(45, 199, 158);
+        background: none;
+        font-size: 15px;
+
+    }
+
+    .btn-cancel {
+        background: rgb(80, 162, 140);
+        font-size: 15px;
+
+    }
+}
   .subscribe-details {
     display: flex;
     flex-direction: column;
