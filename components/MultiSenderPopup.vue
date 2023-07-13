@@ -15,7 +15,7 @@
       <div v-if="showContent1">
         <h3>Transaction pending</h3>
         <p>
-          Ensure there are is no pending transaction on your wallet before
+          Ensure there is no pending transaction on your wallet before
           approving this transaction
         </p>
       </div>
@@ -37,7 +37,7 @@
 <script>
 import { Icon } from "@iconify/vue2";
 export default {
-  name: "MintTokenPopup",
+  name: "MultiSenderPopup",
   components: {
     Icon,
   },
@@ -55,10 +55,10 @@ export default {
 .popup {
   background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
   color: white;
-  // backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 2px solid #1bd19c;
   position: fixed;
-  top: 20%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;

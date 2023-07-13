@@ -88,7 +88,7 @@
         </button>
       </div>
     </div>
-    <MultiSenderPopup v-if="modalPopup" @toggleMultiPopup="toggleMultiPopup" :showContent1="modalContent1" :showContent2="modalContent2" :showContent3="modalContent3" />
+    <MultiSenderPopup class="fix" v-if="modalPopup" @toggleMultiPopup="toggleMultiPopup" :showContent1="modalContent1" :showContent2="modalContent2" :showContent3="modalContent3" />
   </div>
 </template>
 
@@ -147,7 +147,7 @@ export default {
 
     },
     toggleMultiPopup() {
-      this.modalPopup = false;
+      this.modalPopup = !this.modalPopup;
       this.modalContent1 = false;
       this.modalContent2 = false;
       this.modalContent3 = false;
@@ -222,6 +222,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.fix {
+  position: fixed;
+  top: 30%
+}
 .multisender {
   padding: 90px 0;
   .address {

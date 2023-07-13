@@ -3,9 +3,9 @@
     <div class="liquidity-container">
       <div class="liquidity-header flex-between">
         <div class="back-btn" @click="goBack"><Icon icon="ep:back" width="36" /></div>
-        <NuxtLink class="lockBtn" to="/liquiditylocker/lock-liquidity">
+        <NuxtLink class="lockBtn" to="/tokenlocker/lock-token">
           <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
-          Lock Liquidity
+          Lock Token
         </NuxtLink>
       </div>
       <div class="uniswap-pair">
@@ -13,7 +13,7 @@
         <div>0x678af34673663783</div>
       </div>
       <a href="gopulse.com" class="pair-owner">Pair owner: 0x0D73****4e2</a>
-      <p class="locked-heading">Locked Liquidity</p>
+      <p class="locked-heading">Locked Token</p>
       <h3 class="locked-percentage">85.0{{"%"}}</h3>
       <div class="locked-liquidity">
         <div class="lock-token-icon"><img src="@/assets/PLS.png" alt="left token" /></div>
@@ -49,9 +49,9 @@
       </div>
 
       <div class="liquidity-locks">
-        <h3>Liquidity Locks</h3>
+        <h3>Token Locks</h3>
       <p>
-        Note: Only liquidity pool tokens are locked, not the actual USD value. The USD value changes as people trade and more liquidity token are minted as more the pool increases.
+        Note: Only token pool tokens are locked, not the actual USD value. The USD value changes as people trade and more liquidity token are minted as more the pool increases.
       </p></div>
       <div class="unlock-section">
         <div class="flex-between unlock-date">
@@ -69,7 +69,7 @@
 
 <script>
 import { Icon } from '@iconify/vue2';
-import {mapState} from "vuex";
+import {mapState} from 'vuex';
 export default {
   components: {
     Icon,
@@ -116,13 +116,13 @@ export default {
 
 div.top-container {
   padding: 40px 0;
-  // background: yellow;
 }
 
 div.top-container-night {
   background: #070e0c;
   backdrop-filter: blur(20px);
 }
+
 
 .liquidity-container {
   max-width: 700px;

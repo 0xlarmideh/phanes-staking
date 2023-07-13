@@ -1,5 +1,5 @@
 <template>
-  <div :class="nightMode ? 'top-container-night' : '' " class="top-container" >
+  <div :class="nightMode ? 'top-container-night' : ''" class="top-container">
     <div class="liquidity-container">
       <div class="liquidity-header">
         <div class="back-btn" @click="goBack">
@@ -9,8 +9,7 @@
       <h3 class="lock-title">Lock Liquidity</h3>
       <div class="token-pair">
         <img width="21px" src="@/assets/PLS.png" alt="left token" />
-        <p>PLS / PHNS</p>
-        <img width="21px"  src="@/assets/logoPHNS.png" alt="right token" />
+        <p>PLS</p>
       </div>
 
       <div class="lock-tokens-amount">

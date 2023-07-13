@@ -78,10 +78,10 @@
               <h3 class="title">amount</h3>
               <p class="value">{{ card.amount }}</p>
             </div>
-            <div class="lockBtn">
+            <NuxtLink to="/tokenlocker/view-lock"><div class="lockBtn">
               <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
               View Lock
-            </div>
+            </div></NuxtLink>
           </div>
           <div class="expanded" v-if="isExpanded(card)">
             <h3>TOKEN</h3>

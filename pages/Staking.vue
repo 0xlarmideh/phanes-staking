@@ -7,6 +7,7 @@
       :showContent2="modalContent2"
       :showContent3="modalContent3"
     />
+    <!-- Subscribe modal -->
     <div class="subscribe-modal" v-if="cards[tokenIndex]?.showSubscribeModal">
       <button class="close" @click="toggleSubscribeModal(tokenIndex)">X</button>
       <div class="modal-header">
@@ -108,8 +109,8 @@
           </div>
         </div>
         <div class="flex-center">
-          <div @click="toggleInfoText1" class="dot-btn"></div>
-          <div @click="toggleInfoText2" class="dot-btn"></div>
+          <div :class="infoText==='1' ? 'active-dot-btn' : ''" @click="toggleInfoText1" class="dot-btn"></div>
+          <div :class="infoText==='2' ? 'active-dot-btn' : ''" @click="toggleInfoText2" class="dot-btn"></div>
         </div>
       </div>
 
@@ -146,8 +147,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Main page -->
     <div class="row">
-      <h1 class="page-title">Reward Programs</h1>
+      <h1 :class="nightMode ? 'page-title-night' : ''" class="page-title">
+        Reward Programs
+      </h1>
       <div class="filterbar" :class="nightMode ? 'filterbar-night' : ''">
         <div class="leftFilter" @click="toggleStakingPopup(true)">
           <img
@@ -171,76 +176,68 @@
       </div>
 
       <div class="cards">
-        <div class="card" v-for="(card, index) in cards" :key="index">
+        <div :class="nightMode ? 'card-night' : 'card-normal'" class="card" v-for="(card, index) in cards" :key="index">
           <div class="card-header">
-            <div class="title-wrapper">
-              <h3 class="title">{{ card.heading }}</h3>
-              <p class="snippet">{{ card.snippet }}</p>
+            <div class="modal-header">
+              <h3 :class="nightMode ? 'token-name-night' : 'token-name-home'" class="token-nam">{{ card?.heading }}</h3>
+              <p :class="nightMode ? 'snippet-night' : 'snippet-home'" class="snipp">{{ card.snippet }}</p>
             </div>
-            <div class="flex-gap">
-              <div
-                class="favoriteIcon"
-                @click="card.favourite = !card.favourite"
-              >
-                <img
-                  src="@/assets/favourite-red.png"
-                  alt=""
-                  class="icon"
-                  v-if="card.favourite"
-                />
-                <img src="@/assets/favourite.png" alt="" class="icon" v-else />
+            <div class="optionIcon">
+              <div class="optionBtn" @click="toggleShowOptions(index)">
+                <Icon icon="iwwa:option-horizontal" color="white" :rotate="1" />
               </div>
-              <div class="optionIcon">
-                <div class="optionBtn" @click="toggleShowOptions(index)">
-                  <Icon
-                    icon="iwwa:option-horizontal"
-                    color="white"
-                    :rotate="1"
-                  />
-                </div>
-                <div class="option-details" v-if="card.showOptions">
-                  <a class="normal-link" href="#"
-                    ><Icon icon="solar:dollar-broken" :rotate="1" /> Reward
-                    Pool</a
-                  >
-                  <a class="normal-link" href="#"
-                    ><Icon icon="quill:link-out" :rotate="1" /> Program
-                    Contract</a
-                  >
-                  <a class="normal-link" href="#"
-                    ><Icon icon="ph:link" color="black" :rotate="1" /> Copy
-                    Permalink</a
-                  >
-                </div>
+              <div class="option-details" v-if="card.showOptions">
+                <a class="normal-link" href="#"
+                  ><Icon icon="solar:dollar-broken" :rotate="1" /> Reward
+                  Pool</a
+                >
+                <a class="normal-link" href="#"
+                  ><Icon icon="quill:link-out" :rotate="1" /> Program
+                  Contract</a
+                >
+                <a class="normal-link" href="#"
+                  ><Icon icon="ph:link" color="black" :rotate="1" /> Copy
+                  Permalink</a
+                >
               </div>
             </div>
           </div>
-          <div class="column-wrapper">
-            <div class="col">
-              <h4 class="title">APY</h4>
-              <p class="value">{{ card.apy }}%</p>
+          <div>
+            <div :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'" v-if="infoText === '1'" class="flex-around ">
+              <div>
+                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">APY</p>
+                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">{{ card.apy }}</p>
+              </div>
+              <div>
+                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Max Multiplier</p>
+                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">
+                  {{ card?.maxMultiplier }}
+                </p>
+              </div>
+              <div>
+                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Duration</p>
+                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">{{ card?.duration }}</p>
+              </div>
             </div>
-            <div class="col">
-              <h4 class="title">Max Multiplier</h4>
-              <p class="value">{{ card.maxMultiplier }}</p>
+
+            <div :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'" v-if="infoText === '2'" class="flex-around">
+              <div>
+                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Total Rewards</p>
+                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">${{ card?.totalRewards }}</p>
+              </div>
+              <div>
+                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Total Subscribed</p>
+                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">${{ card?.totalSubscribed }}</p>
+              </div>
             </div>
-            <div class="col">
-              <h4 class="title">Duration</h4>
-              <p class="value">{{ card.duration }}</p>
-            </div>
-            <div class="col">
-              <h4 class="title">Total Rewards</h4>
-              <p class="value">${{ card.totalRewards }}</p>
-            </div>
-            <div class="col">
-              <h4 class="title">Total Subscribed</h4>
-              <p class="value">${{ card.totalSubscribed }}</p>
-            </div>
-            <div class="subscriberBtn" @click="toggleSubscribeModal(index)">
-              subscribe
+            <div class="flex-center">
+              <div :class="infoText==='1' ? 'active-dot-btn' : ''" @click="toggleInfoText1" class="dot-btn"></div>
+              <div :class="infoText==='2' ? 'active-dot-btn' : ''" @click="toggleInfoText2" class="dot-btn"></div>
             </div>
           </div>
+          <div @click="toggleSubscribeModal(index)" class="subscriberBtn">Subscribe</div>
         </div>
+        
       </div>
     </div>
   </div>
@@ -271,42 +268,6 @@ export default {
       showSortPopup: false,
       favourite: false,
       cards: [
-        {
-          heading: "Matter V1",
-          snippet: "Material Network | MTRL-WETH LP",
-          apy: 43.9,
-          maxMultiplier: "2x over 30d",
-          duration: "14d left",
-          totalRewards: 3154,
-          totalSubscribed: 11808,
-          favourite: false,
-          showOptions: false,
-          showSubscribeModal: false,
-        },
-        {
-          heading: "Matter V1",
-          snippet: "Material Network | MTRL-WETH LP",
-          apy: 43.9,
-          maxMultiplier: "2x over 30d",
-          duration: "14d left",
-          totalRewards: 3154,
-          totalSubscribed: 11808,
-          favourite: false,
-          showOptions: false,
-          showSubscribeModal: false,
-        },
-        {
-          heading: "Matter V1",
-          snippet: "Material Network | MTRL-WETH LP",
-          apy: 43.9,
-          maxMultiplier: "2x over 30d",
-          duration: "14d left",
-          totalRewards: 3154,
-          totalSubscribed: 11808,
-          favourite: false,
-          showOptions: false,
-          showSubscribeModal: false,
-        },
         {
           heading: "Matter V1",
           snippet: "Material Network | MTRL-WETH LP",
@@ -373,6 +334,9 @@ export default {
     toggleShowOptions(index) {
       this.cards[index].showOptions = !this.cards[index].showOptions;
     },
+    closeOptions(index) {
+      this.cards[index].showOptions = false;
+    },
   },
 };
 </script>
@@ -436,6 +400,11 @@ button {
   background: white;
 }
 
+.active-dot-btn {
+  width: 16px;
+  height: 16px;
+}
+
 .input-clear {
   background: none;
   border: none;
@@ -467,8 +436,13 @@ button {
 
 .page-title {
   text-align: center;
-  margin-top: 36px;
+  padding-top: 36px;
   line-height: 14px;
+}
+
+.page-title-night {
+  background: #070e0c;
+  color: white;
 }
 .flex-around {
   display: flex;
@@ -480,6 +454,20 @@ button {
 }
 .grey-bg {
   background-color: rgb(12, 153, 115);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.grey-bg-night {
+  background-color: rgb(12, 153, 115);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.grey-bg-home {
+  background: white;
+  color: black;
   padding: 20px;
   border-radius: 8px;
 }
@@ -505,16 +493,69 @@ button {
 }
 
 .card-value-white {
-  color: white;
+  // color: white;
   font-weight: 600;
 }
+
+.card-value-night {
+  color: white;
+}
+
+.card-value-home {
+  color: black;
+}
 .grey-title {
-  color: gainsboro;
+  // color: grey;
   font-weight: 400;
+}
+
+.grey-title-night {
+  color: gainsboro;
+}
+
+.grey-title-home {
+  color: grey;
 }
 .white-title {
   color: white;
   font-weight: 400;
+}
+
+.token-name {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.token-nam {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.token-name-night {
+  color: white;
+}
+
+.token-name-home {
+  color: black;
+}
+.snippet {
+  font-size: 14px;
+  font-weight: 400;
+  color: gainsboro;
+}
+
+.snipp {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.snippet-night {
+  color: gainsboro;
+}
+
+.snippet-home {
+  color: grey;
 }
 .staking {
   display: relative;
@@ -535,18 +576,6 @@ button {
   border-radius: 8px;
   z-index: 200;
   transform: translateX(-50%);
-  .modal-header {
-    .token-name {
-      font-size: 24px;
-      font-weight: 600;
-      line-height: 28px;
-    }
-    .snippet {
-      font-size: 14px;
-      font-weight: 400;
-      color: gainsboro;
-    }
-  }
 
   .close {
     background: #1bd19c;
@@ -603,6 +632,10 @@ button {
     flex-direction: column;
     gap: 10px;
   }
+}
+
+.card-night {
+  background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
 }
 .staking-night {
   background: #070e0c;
@@ -760,21 +793,48 @@ button {
   }
 }
 
-.cards {
-  padding: 40px 0;
-  .card {
-    width: 100%;
-    padding: 36px;
-    background: linear-gradient(
+.card-normal {
+   background: linear-gradient(
       95.34deg,
       rgba(9, 151, 110, 0.1) -21.44%,
       rgba(8, 79, 101, 0.1) 108.23%
     );
+}
+
+.cards {
+  padding: 40px 0;
+  .card {
+    max-width: 320px;
+    padding: 20px;
+    color: black;
+    
     border-radius: 8px;
     margin-bottom: 40px;
     @media only screen and (max-width: 420px) {
       padding: 20px;
     }
+
+    .subscriberBtn {
+        margin-top: 10px;
+        width: 100%;
+        height: 44px;
+        background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #ffffff;
+        cursor: pointer;
+        text-transform: capitalize;
+        @media only screen and (max-width: 980px) {
+          margin-top: 20px;
+        }
+        &:hover {
+          background: #09976e;
+        }
+      }
 
     .card-header {
       display: flex;
@@ -836,26 +896,7 @@ button {
         }
       }
 
-      .subscriberBtn {
-        width: 159px;
-        height: 44px;
-        background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 18px;
-        color: #ffffff;
-        cursor: pointer;
-        text-transform: capitalize;
-        @media only screen and (max-width: 980px) {
-          margin-top: 20px;
-        }
-        &:hover {
-          background: #09976e;
-        }
-      }
+      
     }
   }
 }
