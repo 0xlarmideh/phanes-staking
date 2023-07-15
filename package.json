@@ -9,6 +9,8 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "chart.js": "^3.9.1",
     "chartjs-plugin-gradient": "^0.5.1",
     "core-js": "^3.25.3",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@iconify/vue2": "^2.1.0",
+    "@nuxtjs/fontawesome": "^1.1.2",
     "sass": "^1.62.1",
     "sass-loader": "10.1.1",
     "webpack": "^4.45.0"

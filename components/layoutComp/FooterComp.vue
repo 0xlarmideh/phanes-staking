@@ -46,6 +46,28 @@
 <script>
     import { mapState } from 'vuex';
 export default {
+    name: 'FooterComp',
+    data() {
+        return {
+            links: [
+                {
+                    url: "",
+                    name: "Docs",
+                    icon: "",
+                },
+                {
+                    url: "",
+                    name: "Telegram",
+                    icon: "",
+                },
+                {
+                    url: "",
+                    name: "Github",
+                    icon: "",
+                },
+            ]
+        }
+    },
     computed:{
         ...mapState([
             'nightMode'

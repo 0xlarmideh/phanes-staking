@@ -21,13 +21,24 @@ export default {
   css: ["~/assets/css/main.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "~/plugins/chart.js", mode: "client" },  { src: '~/plugins/vuex-persist', ssr: false }],
+  plugins: [
+    { src: "~/plugins/chart.js", mode: "client" },
+    { src: "~/plugins/vuex-persist", ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: ["@nuxtjs/fontawesome"],
+  fontawesome: {
+    component: "Fa",
+    suffix: false,
+    icons: {
+      solid: true,
+      brands: true,
+    },
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
