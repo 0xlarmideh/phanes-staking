@@ -92,7 +92,7 @@
         <button class="disconnect" v-else @click="disconnect">
           {{ compressAddress(walletAddress, 5, 4) }}
         </button>
-        <div class="hamburger" @click="setActive">
+        <div class="hamburger" @click="openHamburger">
         <Icon class="hamburger-btn" v-if="nightMode" color="white"  width="36px" icon="ci:hamburger-md" />
         <Icon class="hamburger-btn" v-else color="black"  width="36px" icon="ci:hamburger-md" />
       </div>
@@ -106,28 +106,28 @@
         :class="nightMode ? 'buttons-mobile-night' : ''"
       >
         <li>
-          <NuxtLink to="" @click="setActive" class="btn btn1">Index</NuxtLink>
+          <NuxtLink to="/" @click="setActive" class="btn btn1">Index</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="" @click="setActive" class="btn btn2"
+          <NuxtLink to="/liquiditylocker" @click="setActive" class="btn btn2"
             >Liquidity Locker</NuxtLink
           >
         </li>
         <li>
-          <NuxtLink to="" @click="setActive" class="btn btn3"
+          <NuxtLink to="/tokenminter" @click="setActive" class="btn btn3"
             >Token Locker</NuxtLink
           >
         </li>
         <li>
-          <NuxtLink to="" @click="setActive" class="btn btn4"
+          <NuxtLink to="/tokenminter" @click="setActive" class="btn btn4"
             >Token Minter</NuxtLink
           >
         </li>
         <li>
-          <NuxtLink to="" @click="setActive" class="btn btn5">Staking</NuxtLink>
+          <NuxtLink to="/staking" @click="setActive" class="btn btn5">Staking</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="" @click="setActive" class="btn btn6"
+          <NuxtLink to="/multisender" @click="setActive" class="btn btn6"
             >Multisender</NuxtLink
           >
         </li>
@@ -172,6 +172,9 @@ export default {
     setActive() {
       this.hideMenu = !this.hideMenu;
 
+    },
+    openHamburger() {
+      this.hideMenu = !this.hideMenu;
     },
     connect() {
       this.clearError();
