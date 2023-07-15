@@ -511,7 +511,6 @@ export default {
 }
 .multisender-night {
   background: #070e0c;
-  backdrop-filter: blur(20px);
   .address {
     .send {
       .text {

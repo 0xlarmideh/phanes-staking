@@ -18,7 +18,7 @@
           <p class="small-text">Balance 0</p>
           <div class="flex-between">
             <p>0</p>
-            <div class="flex-gap"><button class="normal-btn">UNIV2</button> <button class="green-btn">MAX</button></div>
+            <div class="flex-gap"><button class="normal-btn">PLS</button> <button class="green-btn">MAX</button></div>
           </div>
           <div class="flex-gap btn-gap">
             <button class="btn-percentage">25%</button>

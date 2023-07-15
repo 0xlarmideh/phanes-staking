@@ -639,7 +639,7 @@ button {
 }
 .staking-night {
   background: #070e0c;
-  backdrop-filter: blur(20px);
+  display: relative;
   .cards {
     .card {
       .card-header {
