@@ -24,13 +24,13 @@
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
-import Navbar from "~/components/Navbar.vue";
-import FooterComp from "~/components/FooterComp.vue";
-import StakingPopup from "~/components/StakingPopup.vue";
+import Navbar from "~/components/layoutComp/Navbar.vue";
+import FooterComp from "~/components/layoutComp/FooterComp.vue";
+import StakingPopup from "~/components/staking/StakingPopup.vue";
 import PopupTokens1 from '~/components/popupTokens.vue';
-import ConnectWalletPopup from '~/components/ConnectWalletPopup.vue';
-import MintTokenPopup from '~/components/MintTokenPopup.vue';
-import MintTokenSucess from "~/components/MintTokenSucess.vue";
+import ConnectWalletPopup from '~/components/connectwallet/ConnectWalletPopup.vue';
+import MintTokenPopup from '~/components/mintToken/MintTokenPopup.vue';
+import MintTokenSucess from "~/components/mintToken/MintTokenSucess.vue";
 
 
   export default {

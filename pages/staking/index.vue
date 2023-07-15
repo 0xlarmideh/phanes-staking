@@ -246,7 +246,7 @@
 <script>
 import { mapMutations, mapState } from "vuex";
 import { Icon } from "@iconify/vue2";
-import MultiSenderPopup from "~/components/MultiSenderPopup.vue";
+import MultiSenderPopup from "~/components/multisender/MultiSenderPopup.vue";
 export default {
   components: {
     Icon,

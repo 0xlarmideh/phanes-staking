@@ -48,7 +48,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import DoughnutChart from './DoughnutChart.vue';
+import DoughnutChart from '@/components/charts/DoughnutChart.vue';
 export default {
     data() {
         return {

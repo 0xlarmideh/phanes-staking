@@ -10,9 +10,9 @@
 
 <script>
 import { mapMutations } from 'vuex';
-import HeaderComp from "@/components/HeaderComp.vue";
-import MainComp from "@/components/MainComp.vue";
-import FooterComp from "@/components/FooterComp.vue";
+import HeaderComp from "~/components/layoutComp/HeaderComp.vue";
+import MainComp from "~/components/homepageComp/MainComp.vue";
+import FooterComp from "~/components/layoutComp/FooterComp.vue";
 import PopupTokens1 from '@/components/popupTokens.vue';  
 
 export default {

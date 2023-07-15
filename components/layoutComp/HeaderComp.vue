@@ -1,6 +1,6 @@
 <script>
-import LineChart from "./LineChart.vue";
-import ConnecWallet from "./ConnecWallet.vue";
+import LineChart from "../charts/LineChart.vue";
+import ConnecWallet from "../connectwallet/ConnecWallet.vue";
 export default {
     data() {
         return {

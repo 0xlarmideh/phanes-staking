@@ -94,7 +94,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import MultiSenderPopup from "~/components/MultiSenderPopup.vue";
+import MultiSenderPopup from "~/components/multisender/MultiSenderPopup.vue";
 import MultisenderContract from "@/assets/abi/MultisenderABI.json";
 import { set } from 'vue';
 export default {
