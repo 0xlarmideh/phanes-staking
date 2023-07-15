@@ -177,6 +177,7 @@
 
       <div class="cards">
         <div :class="nightMode ? 'card-night' : 'card-normal'" class="card" v-for="(card, index) in cards" :key="index">
+          <div class="card-status" :class="card.featured ? 'featured' : 'unverified'">{{ card.featured ? 'Featured' : 'Unverified' }}</div>
           <div class="card-header">
             <div class="modal-header">
               <h3 :class="nightMode ? 'token-name-night' : 'token-name-home'" class="token-nam">{{ card?.heading }}</h3>
@@ -279,6 +280,20 @@ export default {
           favourite: false,
           showOptions: false,
           showSubscribeModal: false,
+          featured: true,
+        },
+        {
+          heading: "PLSX V2",
+          snippet: "Pulse Network | PLS-WETH LP",
+          apy: 43.9,
+          maxMultiplier: "2x over 60d",
+          duration: "26d left",
+          totalRewards: 1800,
+          totalSubscribed: 24004,
+          favourite: false,
+          showOptions: false,
+          showSubscribeModal: false,
+          featured: false,
         },
       ],
     };
@@ -342,6 +357,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.card-status {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: #F2F2F2;
+  color: #000000;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.featured {
+    background: cyan;
+  }
+
+  .unverified {
+    background: #FFD600;
+  }
 button {
   cursor: pointer;
 }
@@ -803,10 +837,14 @@ button {
 
 .cards {
   padding: 40px 0;
+  display: flex;
+  // justify-content: center;
+  gap: 30px;
   .card {
-    max-width: 320px;
+    width: 340px;
     padding: 20px;
     color: black;
+    position: relative;
     
     border-radius: 8px;
     margin-bottom: 40px;
