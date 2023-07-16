@@ -496,13 +496,18 @@ a {
         margin-bottom: 10px;
         text-transform: capitalize;
         @media only screen and (max-width: 980px) {
-          margin-bottom: 0;
+          margin-bottom: 5px;
+          font-size: 16px;
         }
       }
       .value {
         font-weight: 500;
         font-size: 20px;
         color: #010d09;
+         @media only screen and (max-width: 980px) {
+          margin-bottom: 5px;
+          font-size: 16px;
+        }
       }
       .liquidityVal {
         font-weight: 700;

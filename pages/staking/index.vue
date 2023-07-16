@@ -182,9 +182,9 @@
           </ul>
         </div>
       </div> -->
-      <div class="create-program">
+      <NuxtLink to="/staking/create-vault" class="create-program">
         <button class="createBtn">Create Program</button>
-      </div>
+      </NuxtLink>
 
       <!-- Homepage cards -->
 
@@ -467,6 +467,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.create-program {
+  margin-top: 30px;
+  // padding: 0 10px;
+  display: flex;
+  justify-content: flex-end;
+  @media only screen and (max-width: 980px) {
+    padding: 0 20px;
+  }
+}
+.createBtn {
+  background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
+  display: inline-block;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
 .card-status {
   position: absolute;
   top: -10px;
@@ -699,6 +720,10 @@ button {
 
 .snippet-home {
   color: grey;
+}
+
+input {
+  color: white;
 }
 .staking {
   display: relative;

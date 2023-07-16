@@ -93,9 +93,9 @@
           {{ compressAddress(walletAddress, 5, 4) }}
         </button>
         <div class="hamburger" @click="openHamburger">
-        <Icon class="hamburger-btn" v-if="nightMode" color="white"  width="36px" icon="ci:hamburger-md" />
-        <Icon class="hamburger-btn" v-else color="black"  width="36px" icon="ci:hamburger-md" />
-      </div>
+        <Icon class="menuIcon" v-if="nightMode" color="white"  width="36px" icon="ci:hamburger-md" />
+        <Icon class="menuIcon" v-else color="black"  width="36px" icon="ci:hamburger-md" />
+        </div>
       </div>
       
     </nav>
@@ -203,11 +203,19 @@ export default {
     border: none;
     background: transparent;
     outline: none;
+    border:none;
     display: none;
     cursor: pointer;
     
   }
   .hamburger-btn {
+    outline: none;
+    border:none;
+  }
+  .hamburger-btn:hover {
+    cursor: pointer;
+  }
+  .hamburger:hover {
     cursor: pointer;
   }
 }

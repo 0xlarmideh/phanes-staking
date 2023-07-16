@@ -37,10 +37,6 @@
         v-if="createLock"
         :class="nightMode ? 'lockWrapper-night' : ''"
       >
-        <h3 class="message">
-          Gain investors’ trust by locking your project’s liquidity. This
-          section is only for project deployer.
-        </h3>
         <div class="searchbox">
           <input
             type="text"
@@ -49,6 +45,11 @@
           />
           <img src="@/assets/searchIcon-night.png" class="searchIcon" alt="" />
         </div>
+        <h3 class="message">
+          Gain investors’ trust by locking your project’s liquidity. This
+          section is only for project deployer.
+        </h3>
+        
       </div>
       <ul class="cards" v-else>
         <li
@@ -319,7 +320,7 @@ li {
     background: linear-gradient(180deg, #063841 0%, #054d3e 100%);
     backdrop-filter: blur(20px);
     border-radius: 10px;
-    margin-top: 40px;
+    margin-bottom: 40px;
     @media only screen and (max-width: 680px) {
       width: 540px;
       height: 119px;
@@ -433,11 +434,19 @@ li {
         color: #505050;
         margin-bottom: 10px;
         text-transform: capitalize;
+        @media only screen and (max-width: 980px) {
+          margin-bottom: 5px;
+          font-size: 16px;
+        }
       }
       .value {
         font-weight: 500;
         font-size: 20px;
         color: #010d09;
+         @media only screen and (max-width: 980px) {
+          margin-bottom: 5px;
+          font-size: 16px;
+        }
       }
       .liquidityVal {
         font-weight: 700;
