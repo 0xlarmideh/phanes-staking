@@ -593,7 +593,7 @@ button {
 }
 .staking {
   display: relative;
-  min-height: 80vh;
+  min-height: calc(100vh - 180px);
 }
 .subscribe-modal {
   display: flex;

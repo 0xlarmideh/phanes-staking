@@ -104,7 +104,7 @@ export default {
   }
 }
 .footer-night {
-  background: #070e0c;
+  background: #08241F;
   backdrop-filter: blur(20px); 
 
 }

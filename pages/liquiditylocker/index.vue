@@ -245,10 +245,11 @@ a {
 }
 .liquidityLocker {
   padding: 70px 0;
+  min-height: calc(100vh - 180px);
 }
 .liquidityLocker-night {
   background: #070e0c;
-  backdrop-filter: blur(20px);
+  min-height: calc(100vh - 180px);
 }
 
 .filterbar {

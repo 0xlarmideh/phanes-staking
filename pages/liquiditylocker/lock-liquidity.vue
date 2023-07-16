@@ -87,11 +87,12 @@ export default {
 <style lang="scss" scoped>
 div.top-container {
   padding: 40px 0;
+  min-height: calc(100vh - 180px);
 }
 
 div.top-container-night {
   background: #070e0c;
-  backdrop-filter: blur(20px);
+  min-height: calc(100vh - 180px);
 }
 
 .liquidity-container {
@@ -100,7 +101,6 @@ div.top-container-night {
   border-radius: 20px;
   margin: 0 auto;
   margin-top: 30px;
-  min-height: 75vh;
   color: white;
   padding: 30px;
   text-align: center;
