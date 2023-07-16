@@ -77,7 +77,7 @@
         <a href="#" class="get-link">Get PLSX-WPLS LP</a>
       </div>
       <div v-if="showInfo">
-        <div v-if="infoText === '1'" class="flex-around grey-bg">
+        <div v-if="cards[tokenIndex]?.infoText === '1'" class="flex-around grey-bg">
           <div>
             <p class="grey-title">APY</p>
             <p class="card-value-white">{{ cards[tokenIndex]?.apy }}</p>
@@ -94,7 +94,7 @@
           </div>
         </div>
 
-        <div v-if="infoText === '2'" class="flex-around grey-bg">
+        <div v-if="cards[tokenIndex]?.infoText === '2'" class="flex-around grey-bg">
           <div>
             <p class="grey-title">Total Rewards</p>
             <p class="card-value-white">
@@ -109,8 +109,16 @@
           </div>
         </div>
         <div class="flex-center">
-          <div :class="infoText==='1' ? 'active-dot-btn' : ''" @click="toggleInfoText1" class="dot-btn"></div>
-          <div :class="infoText==='2' ? 'active-dot-btn' : ''" @click="toggleInfoText2" class="dot-btn"></div>
+          <div
+            :class="cards[tokenIndex]?.infoText === '1' ? 'active-dot-btn' : ''"
+            @click="toggleSubscribeInfoText1(cards, tokenIndex)"
+            class="dot-btn"
+          ></div>
+          <div
+            :class="cards[tokenIndex]?.infoText === '2' ? 'active-dot-btn' : ''"
+            @click="toggleSubscribeInfoText2(cards, tokenIndex)"
+            class="dot-btn"
+          ></div>
         </div>
       </div>
 
@@ -153,7 +161,7 @@
       <h1 :class="nightMode ? 'page-title-night' : ''" class="page-title">
         Reward Programs
       </h1>
-      <div class="filterbar" :class="nightMode ? 'filterbar-night' : ''">
+      <!-- <div class="filterbar" :class="nightMode ? 'filterbar-night' : ''">
         <div class="leftFilter" @click="toggleStakingPopup(true)">
           <img
             :src="require(`@/assets/${selectedStakingCurrency.icon}`)"
@@ -173,15 +181,40 @@
             <li class="sortItem">Amount</li>
           </ul>
         </div>
+      </div> -->
+      <div class="create-program">
+        <button class="createBtn">Create Program</button>
       </div>
 
+      <!-- Homepage cards -->
+
       <div class="cards">
-        <div :class="nightMode ? 'card-night' : 'card-normal'" class="card" v-for="(card, index) in cards" :key="index">
-          <div class="card-status" :class="card.featured ? 'featured' : 'unverified'">{{ card.featured ? 'Featured' : 'Unverified' }}</div>
+        <div
+          :class="nightMode ? 'card-night' : 'card-normal'"
+          class="card"
+          v-for="(card, index) in cards"
+          :key="index"
+        >
+          <div
+            class="card-status"
+            :class="card.featured ? 'featured' : 'unverified'"
+          >
+            {{ card.featured ? "Featured" : "Unverified" }}
+          </div>
           <div class="card-header">
             <div class="modal-header">
-              <h3 :class="nightMode ? 'token-name-night' : 'token-name-home'" class="token-nam">{{ card?.heading }}</h3>
-              <p :class="nightMode ? 'snippet-night' : 'snippet-home'" class="snipp">{{ card.snippet }}</p>
+              <h3
+                :class="nightMode ? 'token-name-night' : 'token-name-home'"
+                class="token-nam"
+              >
+                {{ card?.heading }}
+              </h3>
+              <p
+                :class="nightMode ? 'snippet-night' : 'snippet-home'"
+                class="snipp"
+              >
+                {{ card.snippet }}
+              </p>
             </div>
             <div class="optionIcon">
               <div class="optionBtn" @click="toggleShowOptions(index)">
@@ -204,41 +237,106 @@
             </div>
           </div>
           <div>
-            <div :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'" v-if="infoText === '1'" class="flex-around ">
+            <div
+              :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'"
+              v-if="infoText === '1'"
+              class="flex-around"
+            >
               <div>
-                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">APY</p>
-                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">{{ card.apy }}</p>
+                <p
+                  :class="nightMode ? 'grey-title-night' : 'grey-title-home'"
+                  class="grey-title"
+                >
+                  APY
+                </p>
+                <p
+                  :class="nightMode ? 'card-value-night' : 'card-value-home'"
+                  class="card-value-white"
+                >
+                  {{ card.apy }}
+                </p>
               </div>
               <div>
-                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Max Multiplier</p>
-                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">
+                <p
+                  :class="nightMode ? 'grey-title-night' : 'grey-title-home'"
+                  class="grey-title"
+                >
+                  Max Multiplier
+                </p>
+                <p
+                  :class="nightMode ? 'card-value-night' : 'card-value-home'"
+                  class="card-value-white"
+                >
                   {{ card?.maxMultiplier }}
                 </p>
               </div>
               <div>
-                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Duration</p>
-                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">{{ card?.duration }}</p>
+                <p
+                  :class="nightMode ? 'grey-title-night' : 'grey-title-home'"
+                  class="grey-title"
+                >
+                  Duration
+                </p>
+                <p
+                  :class="nightMode ? 'card-value-night' : 'card-value-home'"
+                  class="card-value-white"
+                >
+                  {{ card?.duration }}
+                </p>
               </div>
             </div>
 
-            <div :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'" v-if="infoText === '2'" class="flex-around">
+            <div
+              :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'"
+              v-if="infoText === '2'"
+              class="flex-around"
+            >
               <div>
-                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Total Rewards</p>
-                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">${{ card?.totalRewards }}</p>
+                <p
+                  :class="nightMode ? 'grey-title-night' : 'grey-title-home'"
+                  class="grey-title"
+                >
+                  Total Rewards
+                </p>
+                <p
+                  :class="nightMode ? 'card-value-night' : 'card-value-home'"
+                  class="card-value-white"
+                >
+                  ${{ card?.totalRewards }}
+                </p>
               </div>
               <div>
-                <p :class="nightMode ? 'grey-title-night' : 'grey-title-home'" class="grey-title">Total Subscribed</p>
-                <p :class="nightMode ? 'card-value-night' : 'card-value-home'" class="card-value-white">${{ card?.totalSubscribed }}</p>
+                <p
+                  :class="nightMode ? 'grey-title-night' : 'grey-title-home'"
+                  class="grey-title"
+                >
+                  Total Subscribed
+                </p>
+                <p
+                  :class="nightMode ? 'card-value-night' : 'card-value-home'"
+                  class="card-value-white"
+                >
+                  ${{ card?.totalSubscribed }}
+                </p>
               </div>
             </div>
             <div class="flex-center">
-              <div :class="infoText==='1' ? 'active-dot-btn' : ''" @click="toggleInfoText1" class="dot-btn"></div>
-              <div :class="infoText==='2' ? 'active-dot-btn' : ''" @click="toggleInfoText2" class="dot-btn"></div>
+              <div
+                :class="infoText === '1' ? 'active-dot-btn' : ''"
+                @click="toggleInfoText1"
+                class="dot-btn"
+              ></div>
+              <div
+                :class="infoText === '2' ? 'active-dot-btn' : ''"
+                @click="toggleInfoText2"
+                class="dot-btn"
+              ></div>
             </div>
           </div>
-          <div @click="toggleSubscribeModal(index)" class="subscriberBtn">Subscribe</div>
+          <div @click="toggleSubscribeModal(index)" class="subscriberBtn">
+            Subscribe
+          </div>
         </div>
-        
       </div>
     </div>
   </div>
@@ -281,6 +379,8 @@ export default {
           showOptions: false,
           showSubscribeModal: false,
           featured: true,
+          infoText: "1",
+
         },
         {
           heading: "PLSX V2",
@@ -294,6 +394,8 @@ export default {
           showOptions: false,
           showSubscribeModal: false,
           featured: false,
+          infoText: "1",
+
         },
       ],
     };
@@ -315,6 +417,7 @@ export default {
       this.showInfo = true;
       this.showSubscribeDetails = false;
     },
+
     toggleShowSubscribeDetails() {
       this.showSubscribeDetails = true;
       this.showInfo = false;
@@ -324,6 +427,12 @@ export default {
     },
     toggleInfoText2() {
       this.infoText = "2";
+    },
+    toggleSubscribeInfoText1(item, index) {
+      item[index].infoText = "1";
+    },
+    toggleSubscribeInfoText2(item, index) {
+      item[index].infoText = "2";
     },
     toggleModal() {
       this.modalContent1 = false;
@@ -357,12 +466,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .card-status {
   position: absolute;
   top: -10px;
   left: 20px;
-  background: #F2F2F2;
+  background: #f2f2f2;
   color: #000000;
   padding: 4px 8px;
   border-radius: 8px;
@@ -370,12 +478,12 @@ export default {
   font-weight: 600;
 }
 .featured {
-    background: cyan;
-  }
+  background: cyan;
+}
 
-  .unverified {
-    background: #FFD600;
-  }
+.unverified {
+  background: #ffd600;
+}
 button {
   cursor: pointer;
 }
@@ -829,11 +937,11 @@ button {
 }
 
 .card-normal {
-   background: linear-gradient(
-      95.34deg,
-      rgba(9, 151, 110, 0.1) -21.44%,
-      rgba(8, 79, 101, 0.1) 108.23%
-    );
+  background: linear-gradient(
+    95.34deg,
+    rgba(9, 151, 110, 0.1) -21.44%,
+    rgba(8, 79, 101, 0.1) 108.23%
+  );
 }
 
 .cards {
@@ -846,7 +954,7 @@ button {
     padding: 20px;
     color: black;
     position: relative;
-    
+
     border-radius: 8px;
     margin-bottom: 40px;
     @media only screen and (max-width: 420px) {
@@ -854,26 +962,26 @@ button {
     }
 
     .subscriberBtn {
-        margin-top: 10px;
-        width: 100%;
-        height: 44px;
-        background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 18px;
-        color: #ffffff;
-        cursor: pointer;
-        text-transform: capitalize;
-        @media only screen and (max-width: 980px) {
-          margin-top: 20px;
-        }
-        &:hover {
-          background: #09976e;
-        }
+      margin-top: 10px;
+      width: 100%;
+      height: 44px;
+      background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #ffffff;
+      cursor: pointer;
+      text-transform: capitalize;
+      @media only screen and (max-width: 980px) {
+        margin-top: 20px;
       }
+      &:hover {
+        background: #09976e;
+      }
+    }
 
     .card-header {
       display: flex;
@@ -934,8 +1042,6 @@ button {
           color: #070e0c;
         }
       }
-
-      
     }
   }
 }
