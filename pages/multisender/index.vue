@@ -229,7 +229,7 @@ export default {
 }
 .multisender {
   padding: 90px 0;
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 150px);
   .address {
     display: flex;
     align-items: flex-start;

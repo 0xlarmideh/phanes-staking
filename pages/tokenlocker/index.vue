@@ -194,7 +194,7 @@ li {
 }
 .tokenLocker {
   padding: 70px 0;
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 150px);
 }
 .tokenLocker-night {
   background: #070e0c;

@@ -1,9 +1,9 @@
 <template>
   <footer class="footer" :class="nightMode ? 'footer-night' : ''">
     <div class="row">
-      <div class="footer-logo">
+      <!-- <div class="footer-logo">
         <img src="@/assets/logo.png" width="150px" alt="" class="logo" />
-      </div>
+      </div> -->
       <div class="links-container">
         <div class="social-links" v-for="link in links">
           <a class="link" :href="link?.url" target="_blank">
@@ -17,7 +17,7 @@
               :src="require(`@/assets/footer/${link?.iconNight}`)"
               v-else
             />
-            <p :class="nightMode ? 'link-text-night' : 'link-text'">{{ link?.name }}</p>
+            <!-- <p :class="nightMode ? 'link-text-night' : 'link-text'">{{ link?.name }}</p> -->
           </a>
         </div>
       </div>
@@ -91,6 +91,7 @@ export default {
   padding: 20px 18px;
   .row {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
     .footer-logo {

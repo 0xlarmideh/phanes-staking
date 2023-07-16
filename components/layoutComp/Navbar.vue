@@ -105,29 +105,29 @@
         class="buttons-mobile"
         :class="nightMode ? 'buttons-mobile-night' : ''"
       >
-        <li>
-          <NuxtLink to="/" @click="setActive" class="btn btn1">Index</NuxtLink>
+        <li @click="setActive">
+          <NuxtLink to="/" class="btn btn1">Index</NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="/liquiditylocker" @click="setActive" class="btn btn2"
+        <li @click="setActive">
+          <NuxtLink to="/liquiditylocker" class="btn btn2"
             >Liquidity Locker</NuxtLink
           >
         </li>
-        <li>
-          <NuxtLink to="/tokenminter" @click="setActive" class="btn btn3"
+        <li @click="setActive">
+          <NuxtLink to="/tokenlocker"  class="btn btn3"
             >Token Locker</NuxtLink
           >
         </li>
-        <li>
-          <NuxtLink to="/tokenminter" @click="setActive" class="btn btn4"
+        <li @click="setActive">
+          <NuxtLink to="/tokenminter"  class="btn btn4"
             >Token Minter</NuxtLink
           >
         </li>
-        <li>
-          <NuxtLink to="/staking" @click="setActive" class="btn btn5">Staking</NuxtLink>
+        <li @click="setActive">
+          <NuxtLink to="/staking"  class="btn btn5">Staking</NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="/multisender" @click="setActive" class="btn btn6"
+        <li @click="setActive">
+          <NuxtLink to="/multisender"  class="btn btn6"
             >Multisender</NuxtLink
           >
         </li>
@@ -170,7 +170,7 @@ export default {
       }
     },
     setActive() {
-      this.hideMenu = !this.hideMenu;
+      this.hideMenu = true;
 
     },
     openHamburger() {

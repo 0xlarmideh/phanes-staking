@@ -181,7 +181,7 @@ export default {
 .tokenMinter-night {
   background: #070e0c;
   backdrop-filter: blur(20px);
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 150px);
   .wrapper {
     .tokenMinter-heading {
       color: #fff;

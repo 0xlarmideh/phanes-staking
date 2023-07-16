@@ -85,21 +85,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div.top-container {
+div.top-container, div.top-container-night {
   padding: 40px 0;
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 150px);
+  display: flex;
+  justify-content: center;
 }
 
 div.top-container-night {
   background: #070e0c;
-  min-height: calc(100vh - 180px);
 }
 
 .liquidity-container {
   max-width: 700px;
   background: #08241F;
   border-radius: 20px;
-  margin: 0 auto;
+  margin: 0 10px;
   margin-top: 30px;
   color: white;
   padding: 30px;

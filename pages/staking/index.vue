@@ -239,7 +239,7 @@
           <div>
             <div
               :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'"
-              v-if="infoText === '1'"
+              v-if="card.infoText === '1'"
               class="flex-around"
             >
               <div>
@@ -288,7 +288,7 @@
 
             <div
               :class="nightMode ? 'grey-bg-night' : 'grey-bg-home'"
-              v-if="infoText === '2'"
+              v-if="card.infoText === '2'"
               class="flex-around"
             >
               <div>
@@ -322,13 +322,13 @@
             </div>
             <div class="flex-center">
               <div
-                :class="infoText === '1' ? 'active-dot-btn' : ''"
-                @click="toggleInfoText1"
+                :class="card.infoText === '1' ? 'active-dot-btn' : ''"
+                @click="toggleSubscribeInfoText1(cards, index)"
                 class="dot-btn"
               ></div>
               <div
-                :class="infoText === '2' ? 'active-dot-btn' : ''"
-                @click="toggleInfoText2"
+                :class="card.infoText === '2' ? 'active-dot-btn' : ''"
+                @click="toggleSubscribeInfoText2(cards, index)"
                 class="dot-btn"
               ></div>
             </div>
@@ -408,6 +408,7 @@ export default {
     toggleSubscribeModal(index) {
       this.cards[index].showSubscribeModal =
         !this.cards[index].showSubscribeModal;
+        this.cards[index].infoText = "1";
       //   console.log(this.cards[index].showSubscribeModal);
       this.showInfo = true;
       this.showSubscribeDetails = false;
@@ -701,7 +702,7 @@ button {
 }
 .staking {
   display: relative;
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 150px);
 }
 .subscribe-modal {
   display: flex;
@@ -947,7 +948,8 @@ button {
 .cards {
   padding: 40px 0;
   display: flex;
-  // justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
   .card {
     width: 340px;
