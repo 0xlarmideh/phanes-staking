@@ -34,7 +34,7 @@
         <h3>Recipients and amount</h3>
         <p>
           Enter one address and amount in <span v-if="activeToken">Token</span
-          ><span v-else>ETH</span> on each line. Supports any format
+          ><span v-else>PLS</span> on each line. Supports any format
         </p>
         <textarea
           name=""
