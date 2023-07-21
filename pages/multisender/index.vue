@@ -10,7 +10,7 @@
               @click="activeToken = false"
               :class="activeToken ? '' : 'active-token'"
             >
-              PLS
+              pls
             </p>
             <p
               class="token-item"
@@ -30,7 +30,7 @@
           
         </div>
       </div>
-      <div class="recipients" v-if="showBalance">
+      <div class="recipients" >
         <h3>Recipients and amount</h3>
         <p>
           Enter one address and amount in <span v-if="activeToken">Token</span
