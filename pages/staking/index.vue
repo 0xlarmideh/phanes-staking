@@ -333,7 +333,7 @@
               ></div>
             </div>
           </div>
-          <div @click="toggleSubscribeModal(index)" class="subscriberBtn">
+          <div @click="toggleSubscribeModal(index)" :class="nightMode ? 'subscribeBtnNight' : 'subscribeBtn-normal'" class="subscribeBtn">
             Subscribe
           </div>
         </div>
@@ -988,11 +988,10 @@ input {
       padding: 20px;
     }
 
-    .subscriberBtn {
+    .subscribeBtn {
       margin-top: 10px;
       width: 100%;
       height: 44px;
-      background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -1007,6 +1006,17 @@ input {
       }
       &:hover {
         background: #09976e;
+      }
+    }
+
+    .subscribeBtn-normal {
+      background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
+    }
+
+    .subscribeBtnNight {
+      background: #09976e;
+      &:hover {
+        opacity: 0.8;
       }
     }
 
