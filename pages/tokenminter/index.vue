@@ -155,11 +155,12 @@ export default {
     @media screen and (max-width: 1400px) {
       margin: 30px 0px;
     width: 590px;
-
-      // width: 100%;
       padding: 20px;
-    
-      
+        
+    }
+    @media screen and (max-width: 640px) {
+      width: 100%;
+
     }
     div {
       padding: 0;
