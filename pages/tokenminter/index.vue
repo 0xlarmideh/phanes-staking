@@ -29,12 +29,18 @@
             </label>
             <label for="deciamls">
               <h3 class="title">Decimals</h3>
-              <div class="black-box-reference">
-                <input
+              <input
                   type="number"
                   id="deciamls"
                   placeholder="recommended 18"
                 />
+            </label>
+
+            <div href="#" class="newToken" @click="toggleMintTokenPopup(true)">
+              Mint a new Token
+            </div>
+                          <div class="black-box-reference">
+                
                 <div class="black-box">
                   <div>
                     <div>
@@ -61,11 +67,6 @@
                   </div>
                 </div>
               </div>
-            </label>
-
-            <div href="#" class="newToken" @click="toggleMintTokenPopup(true)">
-              Mint a new Token
-            </div>
           </form>
         </div>
       </div>
@@ -131,10 +132,16 @@ export default {
 }
 .black-box {
   position: absolute;
-  right: -790px;
+  right: -700px;
   bottom: 0px;
-  margin-bottom: 32px;
+  margin-bottom: 74px;
   padding: 0px 20px;
+  @media screen and (max-width: 1400px) {
+    position: relative;
+    right: -0px;
+    padding: 0;
+    // width: '100%'
+  }
   div {
     background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
     min-height: calc(2*32px + 4*83px - 32px);
@@ -145,6 +152,15 @@ export default {
     padding: 36px;
     // font-family: monospace;
     font-size: 17px;
+    @media screen and (max-width: 1400px) {
+      margin: 30px 0px;
+    width: 590px;
+
+      // width: 100%;
+      padding: 20px;
+    
+      
+    }
     div {
       padding: 0;
       margin: 0;
