@@ -18,6 +18,7 @@
     <!-- Render pages inside here -->
     <Nuxt />
     <!--  -->
+    <!-- <FooterCompNew /> -->
     <FooterComp/></div>
    
     
@@ -25,6 +26,7 @@
 <script>
 import { mapMutations, mapState } from "vuex";
 import Navbar from "~/components/layoutComp/Navbar.vue";
+import FooterCompNew from "~/components/layoutComp/FooterCompNew.vue"
 import FooterComp from "~/components/layoutComp/FooterComp.vue";
 import StakingPopup from "~/components/staking/StakingPopup.vue";
 import PopupTokens1 from '~/components/popupTokens.vue';
@@ -55,6 +57,7 @@ import MintTokenSucess from "~/components/mintToken/MintTokenSucess.vue";
     components:{
     Navbar,
     FooterComp,
+    FooterCompNew,
     PopupTokens1,
     StakingPopup,
     MintTokenPopup,

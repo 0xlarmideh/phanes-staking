@@ -183,7 +183,7 @@
         </div>
       </div> -->
       <NuxtLink to="/staking/create-vault" class="create-program">
-        <button class="createBtn">Create Program</button>
+        <button class="createBtn">Create Vault</button>
       </NuxtLink>
 
       <!-- Homepage cards -->
@@ -602,6 +602,8 @@ button {
   text-align: center;
   padding-top: 36px;
   line-height: 14px;
+  font-size: 36px;
+  font-weight: 700;
 }
 
 .page-title-night {
