@@ -134,7 +134,7 @@ export default {
   position: absolute;
   right: -700px;
   bottom: 0px;
-  margin-bottom: 74px;
+  margin-bottom: 80px;
   padding: 0px 20px;
   @media screen and (max-width: 1400px) {
     position: relative;

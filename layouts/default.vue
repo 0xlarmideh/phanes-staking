@@ -18,8 +18,9 @@
     <!-- Render pages inside here -->
     <Nuxt />
     <!--  -->
-    <!-- <FooterCompNew /> -->
-    <FooterComp/></div>
+    <FooterCompNew />
+    <!-- <FooterComp/> -->
+  </div>
    
     
 </template>
