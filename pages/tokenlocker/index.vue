@@ -39,14 +39,20 @@
       >
         <div class="green-bg">
           <h3 class="token-locker-heading">Token Locker</h3>
-          <p>
+          <p class="text-left">
             Introducing Token Vesting Locking Pools by Token Locker, a
             revolutionary system seamlessly integrating token locks into pools,
             supporting all PRC20/ERC20 tokens, including Rebasing and
             Deflationary mechanisms. Rest assured, your ownership of the pool
             share remains intact despite minor adjustments due to decimal
-            rounding. Please note, Liquidity tokens should not be locked here to
-            remain visible and migratable. Trust us for optimal results with
+            rounding. 
+          </p>
+          <p class="text-left mt-[10px] italic text-red-900">
+            Please note, Liquidity tokens should not be locked here to
+            remain visible and migratable. 
+          </p>
+          <p class="text-left mt-[10px]">
+            Trust us for optimal results with
             standard PRC20/ERC20 tokens. Your satisfaction is our priority.
           </p>
           <div class="searchbox">
@@ -222,7 +228,7 @@ li {
 
 .token-locker-heading {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 21px;
 }
 
