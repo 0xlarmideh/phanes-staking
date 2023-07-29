@@ -37,19 +37,35 @@
         v-if="createLock"
         :class="nightMode ? 'lockWrapper-night' : ''"
       >
-        <div class="searchbox">
-          <input
-            type="text"
-            class="searchInput"
-            placeholder="Enter token contract address"
-          />
-          <img src="@/assets/searchIcon-night.png" class="searchIcon" alt="" />
+        <div class="green-bg">
+          <h3 class="token-locker-heading">Token Locker</h3>
+          <p>
+            Introducing Token Vesting Locking Pools by Token Locker, a
+            revolutionary system seamlessly integrating token locks into pools,
+            supporting all PRC20/ERC20 tokens, including Rebasing and
+            Deflationary mechanisms. Rest assured, your ownership of the pool
+            share remains intact despite minor adjustments due to decimal
+            rounding. Please note, Liquidity tokens should not be locked here to
+            remain visible and migratable. Trust us for optimal results with
+            standard PRC20/ERC20 tokens. Your satisfaction is our priority.
+          </p>
+          <div class="searchbox">
+            <input
+              type="text"
+              class="searchInput"
+              placeholder="Enter token contract address"
+            />
+            <img
+              src="@/assets/searchIcon-night.png"
+              class="searchIcon"
+              alt=""
+            />
+          </div>
         </div>
         <h3 class="message">
           Gain investors’ trust by locking your project’s liquidity. This
           section is only for project deployer.
         </h3>
-        
       </div>
       <ul class="cards" v-else>
         <li
@@ -79,10 +95,12 @@
               <h3 class="title">amount</h3>
               <p class="value">{{ card.amount }}</p>
             </div>
-            <NuxtLink to="/tokenlocker/view-lock"><div class="lockBtn">
-              <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
-              View Lock
-            </div></NuxtLink>
+            <NuxtLink to="/tokenlocker/view-lock"
+              ><div class="lockBtn">
+                <img src="@/assets/lockIcon.png" alt="" class="lockIcon" />
+                View Lock
+              </div></NuxtLink
+            >
           </div>
           <div class="expanded" v-if="isExpanded(card)">
             <h3>TOKEN</h3>
@@ -107,8 +125,7 @@
                     :src="require(`@/assets/${card?.icon}`)"
                     alt=""
                     class="icon1"
-                  />
-                  </div
+                  /></div
               ></a>
             </div>
           </div>
@@ -201,6 +218,12 @@ li {
   background: #070e0c;
   backdrop-filter: blur(20px);
   min-height: calc(100vh - 180px);
+}
+
+.token-locker-heading {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 21px;
 }
 
 .filterbar {
@@ -301,9 +324,19 @@ li {
     }
   }
 }
+
+.green-bg {
+  background: linear-gradient(180deg, #063841 0%, #054d3e 100%);
+  border-radius: 8px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  max-width: 850px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+}
 .lockWrapper {
   width: 100%;
-  min-height: 80vh;
+  // min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -313,14 +346,14 @@ li {
   .searchbox {
     position: relative;
     width: 655px;
-    height: 119px;
+    min-height: 119px;
     display: flex;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #063841 0%, #054d3e 100%);
     backdrop-filter: blur(20px);
     border-radius: 10px;
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
     @media only screen and (max-width: 680px) {
       width: 540px;
       height: 119px;
@@ -391,10 +424,10 @@ li {
       rgba(9, 151, 110, 0.1) -21.44%,
       rgba(8, 79, 101, 0.1) 108.23%
     );
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
-    
+
     @media only screen and (max-width: 980px) {
       flex-direction: column;
       align-items: flex-start;
@@ -443,7 +476,7 @@ li {
         font-weight: 500;
         font-size: 20px;
         color: #010d09;
-         @media only screen and (max-width: 980px) {
+        @media only screen and (max-width: 980px) {
           margin-bottom: 5px;
           font-size: 16px;
         }
@@ -506,56 +539,54 @@ li {
   }
 }
 .card-col {
-    margin-bottom: 40px;
-    
+  margin-bottom: 40px;
 }
 
 .expanded {
-    // background: whitesmoke;
-    padding: 20px 40px;
-        border-radius: 0px 0px 8px 8px;
-    background: linear-gradient(
-      95.34deg,
-      rgba(9, 151, 110, 0.1) -21.44%,
-      rgba(8, 79, 101, 0.1) 108.23%
-    );
-
+  // background: whitesmoke;
+  padding: 20px 40px;
+  border-radius: 0px 0px 8px 8px;
+  background: linear-gradient(
+    95.34deg,
+    rgba(9, 151, 110, 0.1) -21.44%,
+    rgba(8, 79, 101, 0.1) 108.23%
+  );
 }
 li {
-    list-style: none;
+  list-style: none;
 }
 
 .item-flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid grey;
-    height: 50px;
-    padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid grey;
+  height: 50px;
+  padding: 10px 0;
 
-    a img {
-          height: 30px;
-          width: 30px;
-          padding: 8px;
-          border-radius: 50%;
-        }
-    .icon1 {
-          background-color: #172852;
-          transform: translateX(0px);
-          height: 30px;
-          width: 30px;
-          padding: 8px;
-          border-radius: 50%;
-        }
-    
-        .icons {
-        margin-right: 0px;
-        img {
-          height: 30px;
-          width: 30px;
-          padding: 8px;
-          border-radius: 50%;
-        }
-      }
+  a img {
+    height: 30px;
+    width: 30px;
+    padding: 8px;
+    border-radius: 50%;
+  }
+  .icon1 {
+    background-color: #172852;
+    transform: translateX(0px);
+    height: 30px;
+    width: 30px;
+    padding: 8px;
+    border-radius: 50%;
+  }
+
+  .icons {
+    margin-right: 0px;
+    img {
+      height: 30px;
+      width: 30px;
+      padding: 8px;
+      border-radius: 50%;
     }
+  }
+}
 </style>
