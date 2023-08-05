@@ -38,8 +38,8 @@
         :class="nightMode ? 'lockWrapper-night' : ''"
       >
         <div class="green-bg">
-          <h3 class="token-locker-heading">Token Locker</h3>
-          <p class="text-left">
+          <h3 class="token-locker-heading text-white">Token Locker</h3>
+          <p class="text-left text-white">
             Introducing Token Vesting Locking Pools by Token Locker, a
             revolutionary system seamlessly integrating token locks into pools,
             supporting all PRC20/ERC20 tokens, including Rebasing and
@@ -51,7 +51,7 @@
             Please note, Liquidity tokens should not be locked here to
             remain visible and migratable. 
           </p>
-          <p class="text-left mt-[10px]">
+          <p class="text-left mt-[10px] text-white">
             Trust us for optimal results with
             standard PRC20/ERC20 tokens. Your satisfaction is our priority.
           </p>

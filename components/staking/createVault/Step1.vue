@@ -45,8 +45,17 @@
       </p>
     </div>
     <div class="flex justify-end pb-[50px] pt-[30px]">
-      <NuxtLink to="/staking"><button class="card-bg rounded-[8px] py-[10px] px-[22px]">Cancel</button></NuxtLink>
-      <button @click="toggleStep2" class="card-bg rounded-[8px] py-[10px] px-[22px]">Proceed</button>
+      <NuxtLink to="/staking"
+        ><button class="card-bg rounded-[8px] py-[10px] px-[22px]">
+          Cancel
+        </button></NuxtLink
+      >
+      <button
+        @click="toggleStep2"
+        class="card-bg rounded-[8px] py-[10px] px-[22px]"
+      >
+        Proceed
+      </button>
     </div>
   </div>
 </template>
@@ -77,9 +86,9 @@ export default {
   },
   methods: {
     toggleStep2() {
-      this.$emit("toggleStep2")
-    }
-  }
+      this.$emit("toggleStep2");
+    },
+  },
 };
 </script>
 

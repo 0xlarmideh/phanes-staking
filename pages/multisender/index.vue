@@ -24,7 +24,7 @@
         <div class="inputToken" v-if="activeToken">
           <input v-model="ethAddress" type="text" placeholder=" Input Token Contract  Address" />
           <div class="flex-between">
-            <div v-if="showBalance">You have 193.56 PLS (PulseChain Token)</div>
+            <div :class="nightMode ? 'text-white' : 'text-black'" v-if="showBalance">You have 193.56 PLS (PulseChain Token)</div>
             <button @click="toggleBalance" class="load">Load</button>
           </div>
           

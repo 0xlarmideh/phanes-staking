@@ -5,7 +5,7 @@
           <div class="col1">
               <img src="@/assets/logo.png" alt="" class="logo">
               <div class="social-icons">
-                  <a href="https://twitter.com/phanes_network" target="_blank"><img src="~/assets/twitter.png" alt=""></a>
+                  <a href="https://twitter.com/phanes_network" target="_blank"><img src="~/assets/Twitter.png" alt=""></a>
                   <a href=""><img src="~/assets/discord.png" alt=""></a>
                   <a href="https://t.me/phanes_network" target="_blank"><img src="~/assets/telegram.png" alt=""></a> 
                   <a href="https://t.me/phanes_anns" target="_blank"><img src="~/assets/announcement.png" alt=""></a> 
@@ -66,17 +66,22 @@
   <style lang="scss" scoped>
     .footer-night {
         background: #08241F;
+        
     }
     .footer-light {
         background: linear-gradient(
     rgba(10, 134, 156, 0.05),
     rgba(10, 134, 156, 0.034)
   );
+
     }
       .footer{
           padding-bottom: 20px;
+          max-width: 100%;
           .columns{
               padding: 60px 24px 40px 24px;
+              margin: 0 auto;
+  max-width: 1600px;
               display: flex;
               align-items: flex-start;
               justify-content: space-between;
