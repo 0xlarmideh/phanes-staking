@@ -9,31 +9,32 @@
         </NuxtLink>
       </div>
       <div class="uniswap-pair">
-        <p>PulseX V1 pair:</p>
-        <div>0x678af34673663783</div>
+        <p>Token Name: </p>
+        <div>PHANES TOKEN</div>
       </div>
-      <a href="gopulse.com" class="pair-owner">Pair owner: 0x0D73****4e2</a>
-      <p class="locked-heading">Locked Token</p>
-      <h3 class="locked-percentage">85.0{{"%"}}</h3>
+      <a href="gopulse.com" class="pair-owner">Ticker: PNS</a>
+      <p class="locked-heading">Deployer: <span>0x678af34673663783</span></p>
+      <h3 class="locked-percentage">10M tokens</h3>
       <div class="locked-liquidity">
         <div class="lock-token-icon"><img src="@/assets/PLS.png" alt="left token" /></div>
         <div class="divider"></div>
         <div class="lock-percentage"><Icon icon="material-symbols:lock" width="66px" /></div>
         <div class="divider"></div>
-        <div class="lock-token-icon"><img src="@/assets/logoPHNS.png" alt="left token" /></div>
+        <div class="lock-token-icon"><img src="@/assets/PLS.png" alt="left token" /></div>
       </div>
       <div class="token-names flex-between">
-        <P>PLS</P>
-        <P>PHNS</P>
+        <P>PLS <span class="text-[14px] text-slate-400">(locked)</span></P>
+        <P>PLS <span class="text-[14px] text-slate-400">(unlocked)</span></P>
       </div>
       <div class="flex-between">
-        <div class="flex-green"><Icon icon="material-symbols:lock-outline" width="18" /><img src="@/assets/PLS.png" alt="locked token" width="18px" />1.2k</div>
-        <div class="flex-green">79.49B<img src="@/assets/logoPHNS.png" width="18px" alt="locked token" /><Icon icon="material-symbols:lock-outline" width="18" /></div>
+        <div class="flex-green"><Icon icon="material-symbols:lock-outline" width="18" /><img src="@/assets/PLS.png" alt="locked token" width="18px" />500K</div>
+        <div class="flex-green">9.5M<img src="@/assets/PLS.png" width="18px" alt="locked token" /><Icon icon="icon-park-outline:unlock" width="18" /></div>
       </div>
       <div class="flex-between">
-        <div class="flex-align-center"><Icon icon="fluent:drop-12-regular" width="18" /><img src="@/assets/PLS.png" alt="locked token" width="18px" />1.5k (0%)</div>
-        <div class="flex-align-center">(1.2%) 99.49B<img src="@/assets/logoPHNS.png" width="18px" alt="locked token" /><Icon icon="fluent:drop-12-regular" width="18" /></div>
+        <p>% (5%)</p>
+        <p>% (95%)</p>
       </div>
+      
       <div class="chart-views">
         <a href="gopulse.com"><div>Explorer</div><Icon icon="iconoir:arrow-br" :rotate="3" /></a>
         <a href="gopulse.com"><div>PulseX</div><Icon icon="iconoir:arrow-br" :rotate="3" /></a>
@@ -166,6 +167,7 @@ div.top-container-night {
   }
   .locked-liquidity {
     display: flex;
+    gap: 8px;
     align-items: center;
     .lock-token-icon {
       width: 60px;

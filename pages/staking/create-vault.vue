@@ -3,79 +3,40 @@
     :class="nightMode ? 'vault-container-night' : ''"
     class="vault-container "
   >
-    <div class="max-w-[1200px] mx-auto pb-[100px]">
-      <h1 class="text-center mb-[24px] text-[36px] font-[700]">
-        Create a new vault on PLS
-      </h1>
-      <div class="grid gap-[16px] mb-[20px] grid-cols-[1fr_1fr_1fr]">
-        <div
-          class="text-center card-bg py-[33px] px-[10px] rounded-[6px] bg-[grey]"
-          v-for="card in cards"
-        >
-          <p class="uppercase mb-[16px] text-white font-[600] text-[18px]">
-            {{ card?.title }}
-          </p>
-          <p class="grey-title font-[300]">{{ card?.description }}</p>
-        </div>
-      </div>
-
-      <div class="card-bg mx-auto py-[33px] px-[10px] rounded-[6px] text-center max-w-[600px]">
-        <p class="font-[500] uppercase font-[600] text-white text-[18px] mb-[16px]">Requirements</p>
-        <p class="grey-title font-[300]">
-          Before starting, please spend a few minutes to familiarise yourself
-          with our reward program documentation.<br /><br />
-          Launching a reward program is permissionless and is done via our
-          factory. We welcome all protocols to launch a reward program via
-          Crucible; giving you instant access to a vast, already existing
-          community.<br /><br />
-
-          Programs that appear to be made in bad faith will be delisted.<br />
-
-          Programs that are deployed by new/unrecognised wallets will be
-          automatically classified as Unverified. Please reach out to us on
-          Discord if you wish to become a verified reward program maintainer.<br /><br />
-
-          Token pricing data is retrieved from Coingecko & Fjord LBPS
-          (historical pricing). Uniswap V2 & Balancer Pool Tokens are supported
-          for automatic valuation (if underlying tokens are on coingecko), other
-          pools such as AAVE can be supported by request. If your tokens are not
-          being priced please ensure it is listed on Coingecko before contacting
-          us.
-        </p>
-      </div>
-      <div class="flex justify-end pb-[50px] pt-[30px]"><button class="card-bg rounded-[8px] py-[10px] px-[22px]">Proceed</button></div>
+    <div class="stepper max-w-[1200px] mx-auto items-center flex gap-4 ">
+      <div :class="[(nightMode ? 'border-white' : 'border-black'), (step===1 ? 'bg-green-400' : '')]" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px] border-white">1</div>
+      <div class="divider" :class="nightMode ? 'bg-white' : 'bg-black'"></div>
+      <div :class="[(nightMode ? 'border-white' : 'border-black'), (step===2 ? 'bg-green-400' : '')]" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px] border-white">2</div>
+      <div class="divider" :class="nightMode ? 'bg-white' : 'bg-black'"></div>
+      <div :class="nightMode ? 'border-white' : 'border-black'" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px] border-white">3</div>
     </div>
+    <Step1 v-if="step===1" @toggleStep2="toggleStep(2)" />
+    <Step2 v-if="step===2" @toggleStep1="toggleStep(1)"/>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Step1 from "../../components/staking/createVault/Step1.vue"
+import Step2 from "../../components/staking/createVault/Step2.vue"
 export default {
   name: "CreateVaultView",
+  components: {Step1, Step2},
   data() {
     return {
-      cards: [
-        {
-          title: "Self custody",
-          description:
-            "Crucible is a smart contract that lets users participate in reward programs using Proof of Stake. Users can keep control of their staked tokens while participating in a program.",
-        },
-        {
-          title: "secure",
-          description:
-            "As users maintain control of their staked tokens, users funds are not pooled at a single point of failure, proving to be a safer and more accepted solution to participants.",
-        },
-        {
-          title: "capital efficient",
-          description:
-            "You can run multiple reward programs using the same staking taken, allowing users to re-use the same staking balance which in turn adds an additional lock to the balance",
-        },
-      ],
+      step: 1,
+      steps: 3,
     };
   },
   computed: {
     ...mapState(["nightMode"]),
   },
+  methods: {
+    toggleStep(step) {
+      this.step = step
+      console.log("step 2")
+    }
+  }
 };
 </script>
 
@@ -86,15 +47,17 @@ export default {
   padding: 20px;
 }
 
-.card-bg {
-  background: linear-gradient(95.34deg, #09976e -21.44%, #084f65 108.23%);
-}
+
 .vault-container-night {
   color: white;
   background: #070e0c;
 }
 
-.grey-title {
-  color: gainsboro;
-}
+.divider {
+      width: calc(50% - 100px);
+      // background: gainsboro;
+      height: 2px;
+    }
+
+
 </style>

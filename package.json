@@ -11,6 +11,7 @@
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@nuxtjs/vuetify": "^1.12.3",
     "chart.js": "^3.9.1",
     "chartjs-plugin-gradient": "^0.5.1",
     "core-js": "^3.25.3",
@@ -18,6 +19,7 @@
     "vue": "^2.7.10",
     "vue-chartjs": "^4.1.1",
     "vue-server-renderer": "^2.7.10",
+    "vue-stepper-component": "^1.0.0",
     "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.7.10",
     "vuex-persist": "^3.1.3",
