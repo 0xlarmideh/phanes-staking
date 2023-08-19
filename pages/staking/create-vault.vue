@@ -4,11 +4,11 @@
     class="vault-container "
   >
     <div class="stepper max-w-[1200px] mx-auto items-center flex gap-4 ">
-      <div :class="[(nightMode ? 'border-white' : 'border-black'), (step===1 ? 'bg-green-400' : '')]" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px] border-white">1</div>
+      <div :class="[(nightMode ? 'border-white' : 'border-black'), (step===1 ? 'bg-green-400' : '')]" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px]">1</div>
       <div class="divider" :class="nightMode ? 'bg-white' : 'bg-black'"></div>
-      <div :class="[(nightMode ? 'border-white' : 'border-black'), (step===2 ? 'bg-green-400' : '')]" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px] border-white">2</div>
+      <div :class="[(nightMode ? 'border-white' : 'border-black'), (step===2 ? 'bg-green-400' : '')]" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px]">2</div>
       <div class="divider" :class="nightMode ? 'bg-white' : 'bg-black'"></div>
-      <div :class="nightMode ? 'border-white' : 'border-black'" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px] border-white">3</div>
+      <div :class="nightMode ? 'border-white' : 'border-black'" class="h-[60px] w-[60px] flex justify-center items-center rounded-full border-[2px]">3</div>
     </div>
     <Step1 v-if="step===1" @toggleStep2="toggleStep(2)" />
     <Step2 v-if="step===2" @toggleStep1="toggleStep(1)"/>
