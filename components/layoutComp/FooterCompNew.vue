@@ -5,7 +5,7 @@
           <div class="col1">
               <img src="@/assets/logo.png" alt="" class="logo">
               <div class="social-icons">
-                  <a href="https://twitter.com/phanes_network" target="_blank"><img src="~/assets/Twitter.png" alt=""></a>
+                  <a href="https://twitter.com/phanes_network" target="_blank"><img src="~/assets/twitter.png" alt=""></a>
                   <a href=""><img src="~/assets/discord.png" alt=""></a>
                   <a href="https://t.me/phanes_network" target="_blank"><img src="~/assets/telegram.png" alt=""></a> 
                   <a href="https://t.me/phanes_anns" target="_blank"><img src="~/assets/announcement.png" alt=""></a> 
