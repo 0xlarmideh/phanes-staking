@@ -17,8 +17,8 @@
 
 <script>
 import { mapState } from "vuex";
-import Step1 from "../../components/staking/createVault/Step1.vue"
-import Step2 from "../../components/staking/createVault/Step2.vue"
+import Step1 from "~/components/staking/createVault/Step1.vue"
+import Step2 from "~/components/staking/createVault/Step2.vue"
 export default {
   name: "CreateVaultView",
   components: {Step1, Step2},

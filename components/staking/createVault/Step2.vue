@@ -21,6 +21,7 @@
               <input
                 type="text"
                 id="programName"
+                v-model="createVaultData.programName"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
             </div>
@@ -31,6 +32,7 @@
               >
               <input
                 type="datetime-local"
+                v-model="createVaultData.startTime"
                 id="date"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -53,6 +55,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="text"
                 id="stakingToken"
+                v-model="createVaultData.stakingToken"
                 placeholder="Select"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -65,6 +68,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="text"
                 id="date"
+                v-model="createVaultData.tokenPurchaseUrl"
                 placeholder="https://"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -84,6 +88,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="text"
                 id="rewardToken"
+                v-model="createVaultData.rewardToken"
                 placeholder="Select"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -96,6 +101,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="number"
                 id="amountRewardToken"
+                v-model="createVaultData.rewardTokenAmount"
                 placeholder="0"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -108,6 +114,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="number"
                 id="unlockDays"
+                v-model="createVaultData.unlockDays"
                 placeholder="1"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -127,6 +134,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="text"
                 id="bonusToken"
+                v-model="createVaultData.bonusToken"
                 placeholder="Select"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -139,6 +147,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="number"
                 id="amountBonusToken"
+                v-model="createVaultData.bonusTokenAmount"
                 placeholder="0"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -158,6 +167,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="number"
                 id="scalingFloor"
+                v-model="createVaultData.scalingFloor"
                 placeholder="1"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -167,6 +177,7 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="number"
                 id="scalingCeiling"
+                v-model="createVaultData.scalingCeiling"
                 placeholder="1"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
@@ -176,12 +187,14 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
               <input
                 type="number"
                 id="scalingDays"
+                v-model="createVaultData.scalingDays"
                 placeholder="1"
                 class="border-[1px] border-[grey] text-black rounded-[6px] py-[10px] px-[10px]"
               />
             </div>
           </div>
         </div>
+        <button @click="consoleThis">Console this</button>
         <!-- <button @click="toggleStep1">Back</button> -->
       </div>
     </div>
@@ -192,9 +205,31 @@ Rebasing/elastic tokens are not supported: You must use a wrapper/buttoned contr
 import {mapState} from "vuex";
 export default {
   name: "Step2",
+  data() {
+    return {
+      createVaultData: {
+        programName: "",
+        startTime: "",
+        stakingToken: "",
+        tokenPurchaseUrl: "",
+        rewardToken: "",
+        rewardTokenAmount: 0,
+        unlockDays: "",
+        bonusToken: "",
+        bonusTokenAmount: 0,
+        scalingFloor: 1,
+        scalingCeiling: 1,
+        scalingDays: 1,
+      },
+    };
+  },
   methods: {
     toggleStep1() {
+     
       this.$emit("toggleStep1");
+    },
+    consoleThis() {
+      console.log(this.createVaultData);
     },
   },
   computed: {

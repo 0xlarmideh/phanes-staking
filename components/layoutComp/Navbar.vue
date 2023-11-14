@@ -22,31 +22,6 @@
               >Index</NuxtLink
             >
           </li>
-          <li>
-            <NuxtLink to="/liquiditylocker" @click="setActive" class="btn btn2"
-              >Liquidity Locker</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink to="/tokenlocker" @click="setActive" class="btn btn3"
-              >Token Locker</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink to="/tokenminter" @click="setActive" class="btn btn4"
-              >Token Minter</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink to="/staking" @click="setActive" class="btn btn5"
-              >Staking</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink to="/multisender" @click="setActive" class="btn btn6"
-              >Multisender</NuxtLink
-            >
-          </li>
         </ul>
       </div>
       <div class="right">
